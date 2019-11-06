@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        #map {
+            width: 1072px;
+            height: 579px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Kenya_1_to_1_Million_GEOLOGY_1.js"></script>
+        <script src="data/Kenya_1_to_1_Million_STRUCTURAL_LINES_2.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-6.0579556116866815,27.560684119262138],[5.732326441517718,49.42714943310405]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_Kenya_1_to_1_Million_GEOLOGY_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">AGE</th>\
+                        <td>' + (feature.properties['AGE'] !== null ? Autolinker.link(String(feature.properties['AGE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LEGEND</th>\
+                        <td>' + (feature.properties['LEGEND'] !== null ? Autolinker.link(String(feature.properties['LEGEND'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LITHOLOGY</th>\
+                        <td>' + (feature.properties['LITHOLOGY'] !== null ? Autolinker.link(String(feature.properties['LITHOLOGY'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Kenya_1_to_1_Million_GEOLOGY_1_0(feature) {
+            switch(String(feature.properties['LEGEND'])) {
+                case 'Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,235,184,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,174,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bajocian To Oxfordian Mainly limestones oolitic or not with Shales and Sandstones (Hamanlei-Uarandab of Ethiopia)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(196,177,158,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Baocian-Upper Jurassic  Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(163,206,197,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Basic rocks (Precambrian to Tertiary)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,159,199,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cenomanian to Maastrichian  Marehan Series  Sandstones, shales (continental) with marine limestones (Mustahil of Ethiopia)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,240,189,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cretaceous Intrusives':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(156,170,197,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Holocene  Alluvium, dune, beaches':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(211,165,167,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Holocene  Alluvium, evaporitic depression':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(167,209,177,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Holocene  Basalt flows, pyroclastics, volcanic soils':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(186,162,207,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Holocene  Colluvial deposits, pebble sheets and red soils':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(196,190,156,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Holocene  Colluvial deposits, red soils, old surface (Garissa)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,213,218,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Holocene Alluvium':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,163,189,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Inland water (Lake)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(187,222,173,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Jurassic  Condensate undifferentiated sequence of Sandstones, limestones (Matasade, Dogogicha, Bule Burgabo)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(158,158,198,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kimmeridgian-Tithonian Dense limestone with an intermediate shale member (Gabredare of Ethiopia)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,164,153,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Lower Permian to Upper Triassic Duruma Series of undifferentiated Karroo':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,155,195,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Miocene  Marls, limestones, sands':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(205,212,166,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Neocomian Shales and limestone (Freretown)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(189,215,236,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Permian-Lower Triassic  MaJi-ya-Chumvi, Shales, siltstones':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(218,172,184,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pleistocene  Marine deposits':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,224,177,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pleistocene  Sands':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(198,184,228,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pleistocene  trachytes, basalts and pyroclastics':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,218,189,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pliocene  Rhyolites':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,212,209,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pliocene  Sandstones, sands (marine to continental to the North':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(192,151,184,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pliocene  trachytes, Phonolites, Basalts':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(191,211,170,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pliocene trachytes, Phonolites, Basalts, Rhyolites':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(154,163,197,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plio-Pleistocene  Sediments of Turkana area':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,178,174,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian  Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatites syntectonic granites':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(177,220,194,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian A  Bukoban  Not applicable':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,171,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Bukoban  Not applicable':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,223,176,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Crystalline limestones, intercalations in PD (Mozambique belt)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(162,196,207,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Intrusives':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,240,190,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Kavirondian, Embue  Grits and mudstones':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(161,155,199,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Kavirondian, Embue, Grits and mudstones':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(194,171,155,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatities, syntectonicgranites':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(149,190,179,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Precambrian Nyanzian, Rhyolites, andesites, Basalts and greywackes':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(197,157,197,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Tertiary Carbonates':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(187,199,159,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Tertiary Intrusives':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(163,182,209,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Tithonian to Neocomian  Mandera Series  Dolomites, Shales, Sandstones (Lower Gorrahei of Ethiopia)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,159,164,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Toarcian Didimtu  Non oolitic limestone':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(151,189,158,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Triassic  MariaKani  Sandstones, shales':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,170,214,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Upper Carboniferous - Lower Permian Taru Grits, Tillites, grits, shales':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(211,200,165,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Upper Miocene  Phonolites, trachytes and olivine basalts':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,190,192,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Upper Miocene/Upper Oligocene- Lower Miocene  Phonolites, trachytes, olivine basalts, Augite basalts (Turkana) and nephelinites (Elgonand others)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(189,152,177,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Upper Oligocene- Lower Miocene  Augite Basalts (Turkana) and nephelinites (Elgonand others)':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(172,199,156,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Upper Triassic - Lower Lias  Mansa Guda (NE) Mazeras (SE) Coarse grained Sandstones':
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,156,192,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(195,165,156,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Kenya_1_to_1_Million_GEOLOGY_1');
+        map.getPane('pane_Kenya_1_to_1_Million_GEOLOGY_1').style.zIndex = 401;
+        map.getPane('pane_Kenya_1_to_1_Million_GEOLOGY_1').style['mix-blend-mode'] = 'normal';
+        var layer_Kenya_1_to_1_Million_GEOLOGY_1 = new L.geoJson(json_Kenya_1_to_1_Million_GEOLOGY_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Kenya_1_to_1_Million_GEOLOGY_1',
+            layerName: 'layer_Kenya_1_to_1_Million_GEOLOGY_1',
+            pane: 'pane_Kenya_1_to_1_Million_GEOLOGY_1',
+            onEachFeature: pop_Kenya_1_to_1_Million_GEOLOGY_1,
+            style: style_Kenya_1_to_1_Million_GEOLOGY_1_0,
+        });
+        bounds_group.addLayer(layer_Kenya_1_to_1_Million_GEOLOGY_1);
+        map.addLayer(layer_Kenya_1_to_1_Million_GEOLOGY_1);
+        function pop_Kenya_1_to_1_Million_STRUCTURAL_LINES_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STRUCTYPE'] !== null ? Autolinker.link(String(feature.properties['STRUCTYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Structure'] !== null ? Autolinker.link(String(feature.properties['Structure'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Kenya_1_to_1_Million_STRUCTURAL_LINES_2_0() {
+            return {
+                pane: 'pane_Kenya_1_to_1_Million_STRUCTURAL_LINES_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Kenya_1_to_1_Million_STRUCTURAL_LINES_2');
+        map.getPane('pane_Kenya_1_to_1_Million_STRUCTURAL_LINES_2').style.zIndex = 402;
+        map.getPane('pane_Kenya_1_to_1_Million_STRUCTURAL_LINES_2').style['mix-blend-mode'] = 'normal';
+        var layer_Kenya_1_to_1_Million_STRUCTURAL_LINES_2 = new L.geoJson(json_Kenya_1_to_1_Million_STRUCTURAL_LINES_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Kenya_1_to_1_Million_STRUCTURAL_LINES_2',
+            layerName: 'layer_Kenya_1_to_1_Million_STRUCTURAL_LINES_2',
+            pane: 'pane_Kenya_1_to_1_Million_STRUCTURAL_LINES_2',
+            onEachFeature: pop_Kenya_1_to_1_Million_STRUCTURAL_LINES_2,
+            style: style_Kenya_1_to_1_Million_STRUCTURAL_LINES_2_0,
+        });
+        bounds_group.addLayer(layer_Kenya_1_to_1_Million_STRUCTURAL_LINES_2);
+        map.addLayer(layer_Kenya_1_to_1_Million_STRUCTURAL_LINES_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Kenya_1_to_1_Million_STRUCTURAL_LINES_2.png" /> Kenya_1_to_1_Million_STRUCTURAL_LINES': layer_Kenya_1_to_1_Million_STRUCTURAL_LINES_2,'Kenya_1_to_1_Million_GEOLOGY<br /><table><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_BajocianUpperJurassicPoisoniashalesandKambeooliticlimestone0.png" /></td><td>Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_BajocianUpperJurassicPoisoniashalesandKambeooliticlimestoneinJ2thicksequenceofshalesinJ31.png" /></td><td>Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_BajocianToOxfordianMainlylimestonesooliticornotwithShalesandSandstonesHamanleiUarandabofEthiopia2.png" /></td><td>Bajocian To Oxfordian Mainly limestones oolitic or not with Shales and Sandstones (Hamanlei-Uarandab of Ethiopia)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_BaocianUpperJurassicPoisoniashalesandKambeooliticlimestoneinJ2thicksequenceofshalesinJ33.png" /></td><td>Baocian-Upper Jurassic  Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_BasicrocksPrecambriantoTertiary4.png" /></td><td>Basic rocks (Precambrian to Tertiary)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_CenomaniantoMaastrichianMarehanSeriesSandstonesshalescontinentalwithmarinelimestonesMustahilofEthiopia5.png" /></td><td>Cenomanian to Maastrichian  Marehan Series  Sandstones, shales (continental) with marine limestones (Mustahil of Ethiopia)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_CretaceousIntrusives6.png" /></td><td>Cretaceous Intrusives</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_HoloceneAlluviumdunebeaches7.png" /></td><td>Holocene  Alluvium, dune, beaches</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_HoloceneAlluviumevaporiticdepression8.png" /></td><td>Holocene  Alluvium, evaporitic depression</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_HoloceneBasaltflowspyroclasticsvolcanicsoils9.png" /></td><td>Holocene  Basalt flows, pyroclastics, volcanic soils</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_HoloceneColluvialdepositspebblesheetsandredsoils10.png" /></td><td>Holocene  Colluvial deposits, pebble sheets and red soils</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_HoloceneColluvialdepositsredsoilsoldsurfaceGarissa11.png" /></td><td>Holocene  Colluvial deposits, red soils, old surface (Garissa)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_HoloceneAlluvium12.png" /></td><td>Holocene Alluvium</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_InlandwaterLake13.png" /></td><td>Inland water (Lake)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_JurassicCondensateundifferentiatedsequenceofSandstoneslimestonesMatasadeDogogichaBuleBurgabo14.png" /></td><td>Jurassic  Condensate undifferentiated sequence of Sandstones, limestones (Matasade, Dogogicha, Bule Burgabo)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_KimmeridgianTithonianDenselimestonewithanintermediateshalememberGabredareofEthiopia15.png" /></td><td>Kimmeridgian-Tithonian Dense limestone with an intermediate shale member (Gabredare of Ethiopia)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_LowerPermiantoUpperTriassicDurumaSeriesofundifferentiatedKarroo16.png" /></td><td>Lower Permian to Upper Triassic Duruma Series of undifferentiated Karroo</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_MioceneMarlslimestonessands17.png" /></td><td>Miocene  Marls, limestones, sands</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_NeocomianShalesandlimestoneFreretown18.png" /></td><td>Neocomian Shales and limestone (Freretown)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PermianLowerTriassicMaJiyaChumviShalessiltstones19.png" /></td><td>Permian-Lower Triassic  MaJi-ya-Chumvi, Shales, siltstones</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PleistoceneMarinedeposits20.png" /></td><td>Pleistocene  Marine deposits</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PleistoceneSands21.png" /></td><td>Pleistocene  Sands</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_Pleistocenetrachytesbasaltsandpyroclastics22.png" /></td><td>Pleistocene  trachytes, basalts and pyroclastics</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PlioceneRhyolites23.png" /></td><td>Pliocene  Rhyolites</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PlioceneSandstonessandsmarinetocontinentaltotheNorth24.png" /></td><td>Pliocene  Sandstones, sands (marine to continental to the North</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PliocenetrachytesPhonolitesBasalts25.png" /></td><td>Pliocene  trachytes, Phonolites, Basalts</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PliocenetrachytesPhonolitesBasaltsRhyolites26.png" /></td><td>Pliocene trachytes, Phonolites, Basalts, Rhyolites</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PlioPleistoceneSedimentsofTurkanaarea27.png" /></td><td>Plio-Pleistocene  Sediments of Turkana area</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianMozambiquebeltQuartzitesmicaschistsbiotiteandhornblendegneissgranitoidgneissamphibolitesmigmatitessyntectonicgranites28.png" /></td><td>Precambrian  Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatites syntectonic granites</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianABukobanNotapplicable29.png" /></td><td>Precambrian A  Bukoban  Not applicable</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianBukobanNotapplicable30.png" /></td><td>Precambrian Bukoban  Not applicable</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianCrystallinelimestonesintercalationsinPDMozambiquebelt31.png" /></td><td>Precambrian Crystalline limestones, intercalations in PD (Mozambique belt)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianIntrusives32.png" /></td><td>Precambrian Intrusives</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianKavirondianEmbueGritsandmudstones33.png" /></td><td>Precambrian Kavirondian, Embue  Grits and mudstones</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianKavirondianEmbueGritsandmudstones34.png" /></td><td>Precambrian Kavirondian, Embue, Grits and mudstones</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianMozambiquebeltQuartzitesmicaschistsbiotiteandhornblendegneissgranitoidgneissamphibolitesmigmatitiessyntectonicgranites35.png" /></td><td>Precambrian Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatities, syntectonicgranites</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_PrecambrianNyanzianRhyolitesandesitesBasaltsandgreywackes36.png" /></td><td>Precambrian Nyanzian, Rhyolites, andesites, Basalts and greywackes</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_TertiaryCarbonates37.png" /></td><td>Tertiary Carbonates</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_TertiaryIntrusives38.png" /></td><td>Tertiary Intrusives</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_TithoniantoNeocomianManderaSeriesDolomitesShalesSandstonesLowerGorraheiofEthiopia39.png" /></td><td>Tithonian to Neocomian  Mandera Series  Dolomites, Shales, Sandstones (Lower Gorrahei of Ethiopia)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_ToarcianDidimtuNonooliticlimestone40.png" /></td><td>Toarcian Didimtu  Non oolitic limestone</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_TriassicMariaKaniSandstonesshales41.png" /></td><td>Triassic  MariaKani  Sandstones, shales</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_UpperCarboniferousLowerPermianTaruGritsTillitesgritsshales42.png" /></td><td>Upper Carboniferous - Lower Permian Taru Grits, Tillites, grits, shales</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_UpperMiocenePhonolitestrachytesandolivinebasalts43.png" /></td><td>Upper Miocene  Phonolites, trachytes and olivine basalts</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_UpperMioceneUpperOligoceneLowerMiocenePhonolitestrachytesolivinebasaltsAugitebasaltsTurkanaandnephelinitesElgonandothers44.png" /></td><td>Upper Miocene/Upper Oligocene- Lower Miocene  Phonolites, trachytes, olivine basalts, Augite basalts (Turkana) and nephelinites (Elgonand others)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_UpperOligoceneLowerMioceneAugiteBasaltsTurkanaandnephelinitesElgonandothers45.png" /></td><td>Upper Oligocene- Lower Miocene  Augite Basalts (Turkana) and nephelinites (Elgonand others)</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_UpperTriassicLowerLiasMansaGudaNEMazerasSECoarsegrainedSandstones46.png" /></td><td>Upper Triassic - Lower Lias  Mansa Guda (NE) Mazeras (SE) Coarse grained Sandstones</td></tr><tr><td style="text-align: center;"><img src="legend/Kenya_1_to_1_Million_GEOLOGY_1_47.png" /></td><td></td></tr></table>': layer_Kenya_1_to_1_Million_GEOLOGY_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"LITHOLOGY": "str","AGE": "str","LEGEND": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + key).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + key).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + key).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_LITHOLOGY = document.createElement('div');
+            div_LITHOLOGY.id = "div_LITHOLOGY";
+            div_LITHOLOGY.className= "filterselect";
+            document.getElementById("menu").appendChild(div_LITHOLOGY);
+            sel_LITHOLOGY = document.createElement('select');
+            sel_LITHOLOGY.multiple = true;
+            sel_LITHOLOGY.size = 10;
+            sel_LITHOLOGY.id = "sel_LITHOLOGY";
+            var LITHOLOGY_options_str = "<option value='' unselected></option>";
+            sel_LITHOLOGY.onchange = function(){filterFunc()};
+            LITHOLOGY_options_str  += '<option value="NULL">NULL</option>';
+            LITHOLOGY_options_str  += '<option value="Alluvium">Alluvium</option>';
+            LITHOLOGY_options_str  += '<option value="Alluvium, dune, beaches">Alluvium, dune, beaches</option>';
+            LITHOLOGY_options_str  += '<option value="Augite basalts (Turkana) and nephelinites (Elgon and others)">Augite basalts (Turkana) and nephelinites (Elgon and others)</option>';
+            LITHOLOGY_options_str  += '<option value="Basalt flows, pyroclastics, volcanic soils">Basalt flows, pyroclastics, volcanic soils</option>';
+            LITHOLOGY_options_str  += '<option value="Basic intrusive">Basic intrusive</option>';
+            LITHOLOGY_options_str  += '<option value="Carbonatite intrusive">Carbonatite intrusive</option>';
+            LITHOLOGY_options_str  += '<option value="Coarse grained sandstones">Coarse grained sandstones</option>';
+            LITHOLOGY_options_str  += '<option value="Colluvial deposits, pebble sheets and red soils">Colluvial deposits, pebble sheets and red soils</option>';
+            LITHOLOGY_options_str  += '<option value="Colluvial deposits, red soils, old surface (Garissa)">Colluvial deposits, red soils, old surface (Garissa)</option>';
+            LITHOLOGY_options_str  += '<option value="Condensate undifferentiated sequence of sandstones, limestones">Condensate undifferentiated sequence of sandstones, limestones</option>';
+            LITHOLOGY_options_str  += '<option value="Crystalline limestone (Intercalations in Mozambique belt)">Crystalline limestone (Intercalations in Mozambique belt)</option>';
+            LITHOLOGY_options_str  += '<option value="Dense limestone with an intermediate shale member (Gabredare of Ethiopia)">Dense limestone with an intermediate shale member (Gabredare of Ethiopia)</option>';
+            LITHOLOGY_options_str  += '<option value="Dolomites, shales, sandstones (Lower Gorrahei of Ethiopia)">Dolomites, shales, sandstones (Lower Gorrahei of Ethiopia)</option>';
+            LITHOLOGY_options_str  += '<option value="Evaporitic depression">Evaporitic depression</option>';
+            LITHOLOGY_options_str  += '<option value="Granite and granodiorite intrusions">Granite and granodiorite intrusions</option>';
+            LITHOLOGY_options_str  += '<option value="Grits">Grits</option>';
+            LITHOLOGY_options_str  += '<option value="Grits and mudstones">Grits and mudstones</option>';
+            LITHOLOGY_options_str  += '<option value="Limestones, calcareous sandstones and shales">Limestones, calcareous sandstones and shales</option>';
+            LITHOLOGY_options_str  += '<option value="Mainly limestone oolitic or not with shales and sandstones (Hamanlei-Uarandab of Ethiopia)">Mainly limestone oolitic or not with shales and sandstones (Hamanlei-Uarandab of Ethiopia)</option>';
+            LITHOLOGY_options_str  += '<option value="Marine deposits">Marine deposits</option>';
+            LITHOLOGY_options_str  += '<option value="Marls, limestones, sands">Marls, limestones, sands</option>';
+            LITHOLOGY_options_str  += '<option value="Non oolitic limestones">Non oolitic limestones</option>';
+            LITHOLOGY_options_str  += '<option value="Phonolites, trachytes and olivine basalts">Phonolites, trachytes and olivine basalts</option>';
+            LITHOLOGY_options_str  += '<option value="Posidonia shales , oolitic limestone and thick shales">Posidonia shales , oolitic limestone and thick shales</option>';
+            LITHOLOGY_options_str  += '<option value="Quartzites and volcanics">Quartzites and volcanics</option>';
+            LITHOLOGY_options_str  += '<option value="Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatites, syntechtonic granites">Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatites, syntechtonic granites</option>';
+            LITHOLOGY_options_str  += '<option value="Rhyolites">Rhyolites</option>';
+            LITHOLOGY_options_str  += '<option value="Rhyolites, andesites, basalts and graywackes">Rhyolites, andesites, basalts and graywackes</option>';
+            LITHOLOGY_options_str  += '<option value="Sandstones and shales">Sandstones and shales</option>';
+            LITHOLOGY_options_str  += '<option value="Sandstones, sands (marine to continental to the North)">Sandstones, sands (marine to continental to the North)</option>';
+            LITHOLOGY_options_str  += '<option value="Sandstones, shales (continental) with marine limestones (Mustahil of Ethiopia)">Sandstones, shales (continental) with marine limestones (Mustahil of Ethiopia)</option>';
+            LITHOLOGY_options_str  += '<option value="Sedimentary banded ironstones, biotite quartz schist, knotenschief, tremolite schist, amphibolites schist">Sedimentary banded ironstones, biotite quartz schist, knotenschief, tremolite schist, amphibolites schist</option>';
+            LITHOLOGY_options_str  += '<option value="Sediments of Turkana area">Sediments of Turkana area</option>';
+            LITHOLOGY_options_str  += '<option value="Shales and limestone (Freretown)">Shales and limestone (Freretown)</option>';
+            LITHOLOGY_options_str  += '<option value="Shales with limestone intercalations">Shales with limestone intercalations</option>';
+            LITHOLOGY_options_str  += '<option value="Shales, siltstones">Shales, siltstones</option>';
+            LITHOLOGY_options_str  += '<option value="Syenite intrusion">Syenite intrusion</option>';
+            LITHOLOGY_options_str  += '<option value="Syenite intrusions">Syenite intrusions</option>';
+            LITHOLOGY_options_str  += '<option value="Tillites, grits, shales">Tillites, grits, shales</option>';
+            LITHOLOGY_options_str  += '<option value="sands">sands</option>';
+            LITHOLOGY_options_str  += '<option value="trachytes, basalts and pyroclastics">trachytes, basalts and pyroclastics</option>';
+            LITHOLOGY_options_str  += '<option value="trachytes, phonolites, basalts">trachytes, phonolites, basalts</option>';
+            LITHOLOGY_options_str  += '<option value="undifferentiated Karroo">undifferentiated Karroo</option>';
+            LITHOLOGY_options_str  += '<option value="undifferentiated Phonolites, trachytes, olivine basalts, augite basalts and nephelinites">undifferentiated Phonolites, trachytes, olivine basalts, augite basalts and nephelinites</option>';
+            LITHOLOGY_options_str  += '<option value="undifferentiated sediments interbedded in volcanic. Sands, shales, tuff">undifferentiated sediments interbedded in volcanic. Sands, shales, tuff</option>';
+            LITHOLOGY_options_str  += '<option value="undifferentiated sediments interbedded in volcanic. Sands, shales, tuffs">undifferentiated sediments interbedded in volcanic. Sands, shales, tuffs</option>';
+            sel_LITHOLOGY.innerHTML = LITHOLOGY_options_str;
+            div_LITHOLOGY.appendChild(sel_LITHOLOGY);
+            var lab_LITHOLOGY = document.createElement('div');
+            lab_LITHOLOGY.innerHTML = 'LITHOLOGY';
+            lab_LITHOLOGY.className = 'filterlabel';
+            div_LITHOLOGY.appendChild(lab_LITHOLOGY);
+            var reset_LITHOLOGY = document.createElement('div');
+            reset_LITHOLOGY.innerHTML = 'clear filter';
+            reset_LITHOLOGY.className = 'filterlabel';
+            reset_LITHOLOGY.onclick = function() {
+                var options = document.getElementById("sel_LITHOLOGY").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_LITHOLOGY.appendChild(reset_LITHOLOGY);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_AGE = document.createElement('div');
+            div_AGE.id = "div_AGE";
+            div_AGE.className= "filterselect";
+            document.getElementById("menu").appendChild(div_AGE);
+            sel_AGE = document.createElement('select');
+            sel_AGE.multiple = true;
+            sel_AGE.size = 10;
+            sel_AGE.id = "sel_AGE";
+            var AGE_options_str = "<option value='' unselected></option>";
+            sel_AGE.onchange = function(){filterFunc()};
+            AGE_options_str  += '<option value="Bajocian - Upper Jurassic">Bajocian - Upper Jurassic</option>';
+            AGE_options_str  += '<option value="Bajocian To Oxfordian">Bajocian To Oxfordian</option>';
+            AGE_options_str  += '<option value="Cenomanian to Maastrichian">Cenomanian to Maastrichian</option>';
+            AGE_options_str  += '<option value="Cretaceous">Cretaceous</option>';
+            AGE_options_str  += '<option value="Holocene">Holocene</option>';
+            AGE_options_str  += '<option value="Jurassic">Jurassic</option>';
+            AGE_options_str  += '<option value="Kimmeridgian-Tithonian">Kimmeridgian-Tithonian</option>';
+            AGE_options_str  += '<option value="Lower Permian to Upper Triassic">Lower Permian to Upper Triassic</option>';
+            AGE_options_str  += '<option value="Miocene">Miocene</option>';
+            AGE_options_str  += '<option value="Neocomian">Neocomian</option>';
+            AGE_options_str  += '<option value="Not applicable">Not applicable</option>';
+            AGE_options_str  += '<option value="Permian-Lower Triassic">Permian-Lower Triassic</option>';
+            AGE_options_str  += '<option value="Pleistocene">Pleistocene</option>';
+            AGE_options_str  += '<option value="Plio-Pleistocene">Plio-Pleistocene</option>';
+            AGE_options_str  += '<option value="Pliocene">Pliocene</option>';
+            AGE_options_str  += '<option value="Precambrian">Precambrian</option>';
+            AGE_options_str  += '<option value="Precambrian A. Bukoban">Precambrian A. Bukoban</option>';
+            AGE_options_str  += '<option value="Precambrian to Tertiary">Precambrian to Tertiary</option>';
+            AGE_options_str  += '<option value="Tertiary">Tertiary</option>';
+            AGE_options_str  += '<option value="Tithonian to Neocomian">Tithonian to Neocomian</option>';
+            AGE_options_str  += '<option value="Toarcian">Toarcian</option>';
+            AGE_options_str  += '<option value="Triassic">Triassic</option>';
+            AGE_options_str  += '<option value="Upper Carboniferous-Lower Permian">Upper Carboniferous-Lower Permian</option>';
+            AGE_options_str  += '<option value="Upper Miocene">Upper Miocene</option>';
+            AGE_options_str  += '<option value="Upper Miocene/Upper Oligocene- Lower Miocene">Upper Miocene/Upper Oligocene- Lower Miocene</option>';
+            AGE_options_str  += '<option value="Upper Triassic - Lower Lias">Upper Triassic - Lower Lias</option>';
+            sel_AGE.innerHTML = AGE_options_str;
+            div_AGE.appendChild(sel_AGE);
+            var lab_AGE = document.createElement('div');
+            lab_AGE.innerHTML = 'AGE';
+            lab_AGE.className = 'filterlabel';
+            div_AGE.appendChild(lab_AGE);
+            var reset_AGE = document.createElement('div');
+            reset_AGE.innerHTML = 'clear filter';
+            reset_AGE.className = 'filterlabel';
+            reset_AGE.onclick = function() {
+                var options = document.getElementById("sel_AGE").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_AGE.appendChild(reset_AGE);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_LEGEND = document.createElement('div');
+            div_LEGEND.id = "div_LEGEND";
+            div_LEGEND.className= "filterselect";
+            document.getElementById("menu").appendChild(div_LEGEND);
+            sel_LEGEND = document.createElement('select');
+            sel_LEGEND.multiple = true;
+            sel_LEGEND.size = 10;
+            sel_LEGEND.id = "sel_LEGEND";
+            var LEGEND_options_str = "<option value='' unselected></option>";
+            sel_LEGEND.onchange = function(){filterFunc()};
+            LEGEND_options_str  += '<option value="Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone">Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone</option>';
+            LEGEND_options_str  += '<option value="Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3">Bajocian - Upper Jurassic Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3</option>';
+            LEGEND_options_str  += '<option value="Bajocian To Oxfordian Mainly limestones oolitic or not with Shales and Sandstones (Hamanlei-Uarandab of Ethiopia)">Bajocian To Oxfordian Mainly limestones oolitic or not with Shales and Sandstones (Hamanlei-Uarandab of Ethiopia)</option>';
+            LEGEND_options_str  += '<option value="Baocian-Upper Jurassic  Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3">Baocian-Upper Jurassic  Poisonia shales and Kambe oolitic limestone in J2, thick sequence of shales in J3</option>';
+            LEGEND_options_str  += '<option value="Basic rocks (Precambrian to Tertiary)">Basic rocks (Precambrian to Tertiary)</option>';
+            LEGEND_options_str  += '<option value="Cenomanian to Maastrichian  Marehan Series  Sandstones, shales (continental) with marine limestones (Mustahil of Ethiopia)">Cenomanian to Maastrichian  Marehan Series  Sandstones, shales (continental) with marine limestones (Mustahil of Ethiopia)</option>';
+            LEGEND_options_str  += '<option value="Cretaceous Intrusives">Cretaceous Intrusives</option>';
+            LEGEND_options_str  += '<option value="Holocene  Alluvium, dune, beaches">Holocene  Alluvium, dune, beaches</option>';
+            LEGEND_options_str  += '<option value="Holocene  Alluvium, evaporitic depression">Holocene  Alluvium, evaporitic depression</option>';
+            LEGEND_options_str  += '<option value="Holocene  Basalt flows, pyroclastics, volcanic soils">Holocene  Basalt flows, pyroclastics, volcanic soils</option>';
+            LEGEND_options_str  += '<option value="Holocene  Colluvial deposits, pebble sheets and red soils">Holocene  Colluvial deposits, pebble sheets and red soils</option>';
+            LEGEND_options_str  += '<option value="Holocene  Colluvial deposits, red soils, old surface (Garissa)">Holocene  Colluvial deposits, red soils, old surface (Garissa)</option>';
+            LEGEND_options_str  += '<option value="Holocene Alluvium">Holocene Alluvium</option>';
+            LEGEND_options_str  += '<option value="Inland water (Lake)">Inland water (Lake)</option>';
+            LEGEND_options_str  += '<option value="Jurassic  Condensate undifferentiated sequence of Sandstones, limestones (Matasade, Dogogicha, Bule Burgabo)">Jurassic  Condensate undifferentiated sequence of Sandstones, limestones (Matasade, Dogogicha, Bule Burgabo)</option>';
+            LEGEND_options_str  += '<option value="Kimmeridgian-Tithonian Dense limestone with an intermediate shale member (Gabredare of Ethiopia)">Kimmeridgian-Tithonian Dense limestone with an intermediate shale member (Gabredare of Ethiopia)</option>';
+            LEGEND_options_str  += '<option value="Lower Permian to Upper Triassic Duruma Series of undifferentiated Karroo">Lower Permian to Upper Triassic Duruma Series of undifferentiated Karroo</option>';
+            LEGEND_options_str  += '<option value="Miocene  Marls, limestones, sands">Miocene  Marls, limestones, sands</option>';
+            LEGEND_options_str  += '<option value="Neocomian Shales and limestone (Freretown)">Neocomian Shales and limestone (Freretown)</option>';
+            LEGEND_options_str  += '<option value="Permian-Lower Triassic  MaJi-ya-Chumvi, Shales, siltstones">Permian-Lower Triassic  MaJi-ya-Chumvi, Shales, siltstones</option>';
+            LEGEND_options_str  += '<option value="Pleistocene  Marine deposits">Pleistocene  Marine deposits</option>';
+            LEGEND_options_str  += '<option value="Pleistocene  Sands">Pleistocene  Sands</option>';
+            LEGEND_options_str  += '<option value="Pleistocene  trachytes, basalts and pyroclastics">Pleistocene  trachytes, basalts and pyroclastics</option>';
+            LEGEND_options_str  += '<option value="Plio-Pleistocene  Sediments of Turkana area">Plio-Pleistocene  Sediments of Turkana area</option>';
+            LEGEND_options_str  += '<option value="Pliocene  Rhyolites">Pliocene  Rhyolites</option>';
+            LEGEND_options_str  += '<option value="Pliocene  Sandstones, sands (marine to continental to the North">Pliocene  Sandstones, sands (marine to continental to the North</option>';
+            LEGEND_options_str  += '<option value="Pliocene  trachytes, Phonolites, Basalts">Pliocene  trachytes, Phonolites, Basalts</option>';
+            LEGEND_options_str  += '<option value="Pliocene trachytes, Phonolites, Basalts, Rhyolites">Pliocene trachytes, Phonolites, Basalts, Rhyolites</option>';
+            LEGEND_options_str  += '<option value="Precambrian  Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatites syntectonic granites">Precambrian  Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatites syntectonic granites</option>';
+            LEGEND_options_str  += '<option value="Precambrian A  Bukoban  Not applicable">Precambrian A  Bukoban  Not applicable</option>';
+            LEGEND_options_str  += '<option value="Precambrian Bukoban  Not applicable">Precambrian Bukoban  Not applicable</option>';
+            LEGEND_options_str  += '<option value="Precambrian Crystalline limestones, intercalations in PD (Mozambique belt)">Precambrian Crystalline limestones, intercalations in PD (Mozambique belt)</option>';
+            LEGEND_options_str  += '<option value="Precambrian Intrusives">Precambrian Intrusives</option>';
+            LEGEND_options_str  += '<option value="Precambrian Kavirondian, Embue  Grits and mudstones">Precambrian Kavirondian, Embue  Grits and mudstones</option>';
+            LEGEND_options_str  += '<option value="Precambrian Kavirondian, Embue, Grits and mudstones">Precambrian Kavirondian, Embue, Grits and mudstones</option>';
+            LEGEND_options_str  += '<option value="Precambrian Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatities, syntectonicgranites">Precambrian Mozambique belt  Quartzites, mica schists, biotite and hornblende gneiss, granitoid gneiss, amphibolites, migmatities, syntectonicgranites</option>';
+            LEGEND_options_str  += '<option value="Precambrian Nyanzian, Rhyolites, andesites, Basalts and greywackes">Precambrian Nyanzian, Rhyolites, andesites, Basalts and greywackes</option>';
+            LEGEND_options_str  += '<option value="Tertiary Carbonates">Tertiary Carbonates</option>';
+            LEGEND_options_str  += '<option value="Tertiary Intrusives">Tertiary Intrusives</option>';
+            LEGEND_options_str  += '<option value="Tithonian to Neocomian  Mandera Series  Dolomites, Shales, Sandstones (Lower Gorrahei of Ethiopia)">Tithonian to Neocomian  Mandera Series  Dolomites, Shales, Sandstones (Lower Gorrahei of Ethiopia)</option>';
+            LEGEND_options_str  += '<option value="Toarcian Didimtu  Non oolitic limestone">Toarcian Didimtu  Non oolitic limestone</option>';
+            LEGEND_options_str  += '<option value="Triassic  MariaKani  Sandstones, shales">Triassic  MariaKani  Sandstones, shales</option>';
+            LEGEND_options_str  += '<option value="Upper Carboniferous - Lower Permian Taru Grits, Tillites, grits, shales">Upper Carboniferous - Lower Permian Taru Grits, Tillites, grits, shales</option>';
+            LEGEND_options_str  += '<option value="Upper Miocene  Phonolites, trachytes and olivine basalts">Upper Miocene  Phonolites, trachytes and olivine basalts</option>';
+            LEGEND_options_str  += '<option value="Upper Miocene/Upper Oligocene- Lower Miocene  Phonolites, trachytes, olivine basalts, Augite basalts (Turkana) and nephelinites (Elgonand others)">Upper Miocene/Upper Oligocene- Lower Miocene  Phonolites, trachytes, olivine basalts, Augite basalts (Turkana) and nephelinites (Elgonand others)</option>';
+            LEGEND_options_str  += '<option value="Upper Oligocene- Lower Miocene  Augite Basalts (Turkana) and nephelinites (Elgonand others)">Upper Oligocene- Lower Miocene  Augite Basalts (Turkana) and nephelinites (Elgonand others)</option>';
+            LEGEND_options_str  += '<option value="Upper Triassic - Lower Lias  Mansa Guda (NE) Mazeras (SE) Coarse grained Sandstones">Upper Triassic - Lower Lias  Mansa Guda (NE) Mazeras (SE) Coarse grained Sandstones</option>';
+            sel_LEGEND.innerHTML = LEGEND_options_str;
+            div_LEGEND.appendChild(sel_LEGEND);
+            var lab_LEGEND = document.createElement('div');
+            lab_LEGEND.innerHTML = 'LEGEND';
+            lab_LEGEND.className = 'filterlabel';
+            div_LEGEND.appendChild(lab_LEGEND);
+            var reset_LEGEND = document.createElement('div');
+            reset_LEGEND.innerHTML = 'clear filter';
+            reset_LEGEND.className = 'filterlabel';
+            reset_LEGEND.onclick = function() {
+                var options = document.getElementById("sel_LEGEND").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_LEGEND.appendChild(reset_LEGEND);
+        </script>
+        </script>
+    </body>
+</html>

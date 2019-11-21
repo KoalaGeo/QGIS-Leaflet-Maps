@@ -8,10 +8,24 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+	        <!--[if lte IE 8]><link rel="stylesheet" href="libs/leaflet.ie.css" /><![endif]-->
+        <script src="lib/leaflet/leaflet.js"></script>
+        <link rel="stylesheet" href="lib/opacity/Control.Opacity.css" />
+        <script src="lib/opacity/Control.Opacity.js"></script>   
+        <script src="lib/jquery/jquery-1.9.1.js"></script>
+        <script src="lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+        <link rel="stylesheet" href="lib/jquery/jquery-ui-1.10.3.custom.min.css" />
         <style>
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+        
         #map {
-            width: 583px;
-            height: 796px;
+            width: 99%;
+            height: 100%; 
         }
         </style>
         <title></title>
@@ -61,6 +75,16 @@
                 return this._bounds;
             }
         });
+    //Create the opacity controls
+        var opacitySlider = new L.Control.opacitySlider();
+        map.addControl(opacitySlider);
+    
+    //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
+    //You only need to call it once. 
+        opacitySlider.setOpacityLayer(layer_625kbedrock_1);
+        
+    //Set initial opacity to 0.5 (Optional)
+        layer_625kbedrock_1.setOpacity(0.5);
         </script>
     </body>
 </html>

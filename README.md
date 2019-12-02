@@ -9,3 +9,7 @@ https://koalageo.github.io/QGIS-Leaflet-Maps/MinOcc_Labels/
 
 
 https://koalageo.github.io/QGIS-Leaflet-Maps/BGS_625k
+
+
+
+https://koalageo.github.io/QGIS-Leaflet-Maps/Shales

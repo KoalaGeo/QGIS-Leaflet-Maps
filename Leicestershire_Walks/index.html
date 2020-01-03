@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/LeicestershireRound_1.js"></script>
+        <script src="data/JubileeWay_2.js"></script>
+        <script src="data/IvanhoeWayRound_3.js"></script>
+        <script src="data/CharnwoodRound_4.js"></script>
+        <script src="data/CharnwoodPeaksRound_5.js"></script>
+        <script src="data/CharnwoodForestRound_6.js"></script>
+        <script src="data/CharnwoodForestChallengeWalk_7.js"></script>
+        <script src="data/BelvoirWitchesChallengeWalk_8.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_LeicestershireRound_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LeicestershireRound_1_0() {
+            return {
+                pane: 'pane_LeicestershireRound_1',
+                opacity: 1,
+                color: 'rgba(234,9,201,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_LeicestershireRound_1');
+        map.getPane('pane_LeicestershireRound_1').style.zIndex = 401;
+        map.getPane('pane_LeicestershireRound_1').style['mix-blend-mode'] = 'normal';
+        var layer_LeicestershireRound_1 = new L.geoJson(json_LeicestershireRound_1, {
+            attribution: '',
+            pane: 'pane_LeicestershireRound_1',
+            onEachFeature: pop_LeicestershireRound_1,
+            style: style_LeicestershireRound_1_0,
+        });
+        bounds_group.addLayer(layer_LeicestershireRound_1);
+        map.addLayer(layer_LeicestershireRound_1);
+        function pop_JubileeWay_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_JubileeWay_2_0() {
+            return {
+                pane: 'pane_JubileeWay_2',
+                opacity: 1,
+                color: 'rgba(72,123,182,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_JubileeWay_2');
+        map.getPane('pane_JubileeWay_2').style.zIndex = 402;
+        map.getPane('pane_JubileeWay_2').style['mix-blend-mode'] = 'normal';
+        var layer_JubileeWay_2 = new L.geoJson(json_JubileeWay_2, {
+            attribution: '',
+            pane: 'pane_JubileeWay_2',
+            onEachFeature: pop_JubileeWay_2,
+            style: style_JubileeWay_2_0,
+        });
+        bounds_group.addLayer(layer_JubileeWay_2);
+        map.addLayer(layer_JubileeWay_2);
+        function pop_IvanhoeWayRound_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IvanhoeWayRound_3_0() {
+            return {
+                pane: 'pane_IvanhoeWayRound_3',
+                opacity: 1,
+                color: 'rgba(234,10,10,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_IvanhoeWayRound_3');
+        map.getPane('pane_IvanhoeWayRound_3').style.zIndex = 403;
+        map.getPane('pane_IvanhoeWayRound_3').style['mix-blend-mode'] = 'normal';
+        var layer_IvanhoeWayRound_3 = new L.geoJson(json_IvanhoeWayRound_3, {
+            attribution: '',
+            pane: 'pane_IvanhoeWayRound_3',
+            onEachFeature: pop_IvanhoeWayRound_3,
+            style: style_IvanhoeWayRound_3_0,
+        });
+        bounds_group.addLayer(layer_IvanhoeWayRound_3);
+        map.addLayer(layer_IvanhoeWayRound_3);
+        function pop_CharnwoodRound_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CharnwoodRound_4_0() {
+            return {
+                pane: 'pane_CharnwoodRound_4',
+                opacity: 1,
+                color: 'rgba(9,234,208,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_CharnwoodRound_4');
+        map.getPane('pane_CharnwoodRound_4').style.zIndex = 404;
+        map.getPane('pane_CharnwoodRound_4').style['mix-blend-mode'] = 'normal';
+        var layer_CharnwoodRound_4 = new L.geoJson(json_CharnwoodRound_4, {
+            attribution: '',
+            pane: 'pane_CharnwoodRound_4',
+            onEachFeature: pop_CharnwoodRound_4,
+            style: style_CharnwoodRound_4_0,
+        });
+        bounds_group.addLayer(layer_CharnwoodRound_4);
+        map.addLayer(layer_CharnwoodRound_4);
+        function pop_CharnwoodPeaksRound_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CharnwoodPeaksRound_5_0() {
+            return {
+                pane: 'pane_CharnwoodPeaksRound_5',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_CharnwoodPeaksRound_5');
+        map.getPane('pane_CharnwoodPeaksRound_5').style.zIndex = 405;
+        map.getPane('pane_CharnwoodPeaksRound_5').style['mix-blend-mode'] = 'normal';
+        var layer_CharnwoodPeaksRound_5 = new L.geoJson(json_CharnwoodPeaksRound_5, {
+            attribution: '',
+            pane: 'pane_CharnwoodPeaksRound_5',
+            onEachFeature: pop_CharnwoodPeaksRound_5,
+            style: style_CharnwoodPeaksRound_5_0,
+        });
+        bounds_group.addLayer(layer_CharnwoodPeaksRound_5);
+        map.addLayer(layer_CharnwoodPeaksRound_5);
+        function pop_CharnwoodForestRound_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CharnwoodForestRound_6_0() {
+            return {
+                pane: 'pane_CharnwoodForestRound_6',
+                opacity: 1,
+                color: 'rgba(9,234,20,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_CharnwoodForestRound_6');
+        map.getPane('pane_CharnwoodForestRound_6').style.zIndex = 406;
+        map.getPane('pane_CharnwoodForestRound_6').style['mix-blend-mode'] = 'normal';
+        var layer_CharnwoodForestRound_6 = new L.geoJson(json_CharnwoodForestRound_6, {
+            attribution: '',
+            pane: 'pane_CharnwoodForestRound_6',
+            onEachFeature: pop_CharnwoodForestRound_6,
+            style: style_CharnwoodForestRound_6_0,
+        });
+        bounds_group.addLayer(layer_CharnwoodForestRound_6);
+        map.addLayer(layer_CharnwoodForestRound_6);
+        function pop_CharnwoodForestChallengeWalk_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CharnwoodForestChallengeWalk_7_0() {
+            return {
+                pane: 'pane_CharnwoodForestChallengeWalk_7',
+                opacity: 1,
+                color: 'rgba(235,129,8,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_CharnwoodForestChallengeWalk_7');
+        map.getPane('pane_CharnwoodForestChallengeWalk_7').style.zIndex = 407;
+        map.getPane('pane_CharnwoodForestChallengeWalk_7').style['mix-blend-mode'] = 'normal';
+        var layer_CharnwoodForestChallengeWalk_7 = new L.geoJson(json_CharnwoodForestChallengeWalk_7, {
+            attribution: '',
+            pane: 'pane_CharnwoodForestChallengeWalk_7',
+            onEachFeature: pop_CharnwoodForestChallengeWalk_7,
+            style: style_CharnwoodForestChallengeWalk_7_0,
+        });
+        bounds_group.addLayer(layer_CharnwoodForestChallengeWalk_7);
+        map.addLayer(layer_CharnwoodForestChallengeWalk_7);
+        function pop_BelvoirWitchesChallengeWalk_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(String(feature.properties['desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(String(feature.properties['src'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(String(feature.properties['link1_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(String(feature.properties['link1_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(String(feature.properties['link1_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(String(feature.properties['link2_href'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(String(feature.properties['link2_text'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(String(feature.properties['link2_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(String(feature.properties['number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BelvoirWitchesChallengeWalk_8_0() {
+            return {
+                pane: 'pane_BelvoirWitchesChallengeWalk_8',
+                opacity: 1,
+                color: 'rgba(8,23,234,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_BelvoirWitchesChallengeWalk_8');
+        map.getPane('pane_BelvoirWitchesChallengeWalk_8').style.zIndex = 408;
+        map.getPane('pane_BelvoirWitchesChallengeWalk_8').style['mix-blend-mode'] = 'normal';
+        var layer_BelvoirWitchesChallengeWalk_8 = new L.geoJson(json_BelvoirWitchesChallengeWalk_8, {
+            attribution: '',
+            pane: 'pane_BelvoirWitchesChallengeWalk_8',
+            onEachFeature: pop_BelvoirWitchesChallengeWalk_8,
+            style: style_BelvoirWitchesChallengeWalk_8_0,
+        });
+        bounds_group.addLayer(layer_BelvoirWitchesChallengeWalk_8);
+        map.addLayer(layer_BelvoirWitchesChallengeWalk_8);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/BelvoirWitchesChallengeWalk_8.png" /> Belvoir Witches Challenge Walk': layer_BelvoirWitchesChallengeWalk_8,'<img src="legend/CharnwoodForestChallengeWalk_7.png" /> Charnwood Forest Challenge Walk': layer_CharnwoodForestChallengeWalk_7,'<img src="legend/CharnwoodForestRound_6.png" /> Charnwood Forest Round': layer_CharnwoodForestRound_6,'<img src="legend/CharnwoodPeaksRound_5.png" /> Charnwood Peaks Round': layer_CharnwoodPeaksRound_5,'<img src="legend/CharnwoodRound_4.png" /> Charnwood Round': layer_CharnwoodRound_4,'<img src="legend/IvanhoeWayRound_3.png" /> Ivanhoe Way Round': layer_IvanhoeWayRound_3,'<img src="legend/JubileeWay_2.png" /> Jubilee Way': layer_JubileeWay_2,'<img src="legend/LeicestershireRound_1.png" /> Leicestershire Round': layer_LeicestershireRound_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

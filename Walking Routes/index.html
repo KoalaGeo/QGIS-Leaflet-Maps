@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="data/UKTrigPoints_2.js"></script>
+        <script src="data/Routes_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[52.45638785362591,-1.7430837637172043],[52.82139204493649,-0.5266598169589223]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_OpenTopoMap_0 = L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)</a>',
+        });
+        layer_OpenTopoMap_0;
+        map.addLayer(layer_OpenTopoMap_0);
+        var layer_OSMStandard_1 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+        });
+        layer_OSMStandard_1;
+        map.addLayer(layer_OSMStandard_1);
+        function pop_UKTrigPoints_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(String(feature.properties['description'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(String(feature.properties['timestamp'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(String(feature.properties['begin'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(String(feature.properties['end'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(String(feature.properties['altitudeMode'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(String(feature.properties['tessellate'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(String(feature.properties['extrude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(String(feature.properties['visibility'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(String(feature.properties['drawOrder'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(String(feature.properties['icon'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UKTrigPoints_2_0() {
+            return {
+                pane: 'pane_UKTrigPoints_2',
+                shape: 'triangle',
+                radius: 2.4,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,123,182,1.0)',
+            }
+        }
+        map.createPane('pane_UKTrigPoints_2');
+        map.getPane('pane_UKTrigPoints_2').style.zIndex = 402;
+        map.getPane('pane_UKTrigPoints_2').style['mix-blend-mode'] = 'normal';
+        var layer_UKTrigPoints_2 = new L.geoJson(json_UKTrigPoints_2, {
+            attribution: '',
+            pane: 'pane_UKTrigPoints_2',
+            onEachFeature: pop_UKTrigPoints_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_UKTrigPoints_2_0(feature));
+            },
+        });
+        var cluster_UKTrigPoints_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_UKTrigPoints_2.addLayer(layer_UKTrigPoints_2);
+
+        bounds_group.addLayer(layer_UKTrigPoints_2);
+        cluster_UKTrigPoints_2.addTo(map);
+        function pop_Routes_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>name</strong><br />' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>cmt</strong><br />' + (feature.properties['cmt'] !== null ? Autolinker.link(String(feature.properties['cmt'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Routes_3_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Belvoir Witches Challenge Walk':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(200,231,120,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Charnwood Forest Challenge Walk':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(83,176,215,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Charnwood Forest Round':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(206,174,118,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Charnwood Peaks':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(229,46,52,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Charnwood Round':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(17,226,150,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Ivanhoe Way Round':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(196,137,230,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Jubilee way':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(94,237,86,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'Leicestershire Round':
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(86,90,205,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Routes_3',
+                opacity: 1,
+                color: 'rgba(233,111,197,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Routes_3');
+        map.getPane('pane_Routes_3').style.zIndex = 403;
+        map.getPane('pane_Routes_3').style['mix-blend-mode'] = 'normal';
+        var layer_Routes_3 = new L.geoJson(json_Routes_3, {
+            attribution: '',
+            pane: 'pane_Routes_3',
+            onEachFeature: pop_Routes_3,
+            style: style_Routes_3_0,
+        });
+        bounds_group.addLayer(layer_Routes_3);
+        map.addLayer(layer_Routes_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Routes<br /><table><tr><td style="text-align: center;"><img src="legend/Routes_3_BelvoirWitchesChallengeWalk0.png" /></td><td>Belvoir Witches Challenge Walk</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_CharnwoodForestChallengeWalk1.png" /></td><td>Charnwood Forest Challenge Walk</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_CharnwoodForestRound2.png" /></td><td>Charnwood Forest Round</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_CharnwoodPeaks3.png" /></td><td>Charnwood Peaks</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_CharnwoodRound4.png" /></td><td>Charnwood Round</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_IvanhoeWayRound5.png" /></td><td>Ivanhoe Way Round</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_Jubileeway6.png" /></td><td>Jubilee way</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_LeicestershireRound7.png" /></td><td>Leicestershire Round</td></tr><tr><td style="text-align: center;"><img src="legend/Routes_3_8.png" /></td><td></td></tr></table>': layer_Routes_3,'<img src="legend/UKTrigPoints_2.png" /> UK TrigPoints': cluster_UKTrigPoints_2,"OSM Standard": layer_OSMStandard_1,"OpenTopoMap": layer_OpenTopoMap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

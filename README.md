@@ -11,3 +11,5 @@ https://koalageo.github.io/QGIS-Leaflet-Maps/BGS_625k
 https://koalageo.github.io/QGIS-Leaflet-Maps/Shales
 
 https://koalageo.github.io/QGIS-Leaflet-Maps/Leicestershire_Walks
+
+https://koalageo.github.io/QGIS-Leaflet-Maps/Leicestershire_Scouting

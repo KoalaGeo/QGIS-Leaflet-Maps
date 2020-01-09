@@ -8,8 +8,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/filter.css">
-<link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
         <style>
         html, body, #map {
@@ -34,9 +32,6 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-        <script src="js/tailDT.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/wNumb.js"></script>
         <script src="data/Leicestershire_Scouting_1.js"></script>
         <script>
         var map = L.map('map', {
@@ -64,13 +59,16 @@
                         <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">description</th>\
+                        <td>' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Group'] !== null ? Autolinker.link(feature.properties['Group'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Group</th>\
+                        <td>' + (feature.properties['Group'] !== null ? Autolinker.link(feature.properties['Group'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -91,7 +89,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(71,220,86,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Campsite':
@@ -108,7 +106,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(0,0,0,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Charnwood':
@@ -124,7 +122,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(96,209,196,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'County ':
@@ -141,7 +139,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(84,176,74,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Hinckley':
@@ -157,7 +155,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(216,112,227,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Loughborough':
@@ -173,7 +171,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(140,80,203,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Market Harborough':
@@ -189,7 +187,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(211,127,43,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Melton Mowbray':
@@ -205,7 +203,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(210,199,95,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'North East':
@@ -221,7 +219,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(121,215,167,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'South East':
@@ -237,7 +235,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(228,53,34,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'South Leics.':
@@ -253,7 +251,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(126,206,237,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'South West':
@@ -269,7 +267,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(226,113,147,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
             }
@@ -279,7 +277,7 @@
         map.getPane('pane_Leicestershire_Scouting_1').style['mix-blend-mode'] = 'normal';
         var layer_Leicestershire_Scouting_1 = new L.geoJson(json_Leicestershire_Scouting_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Leicestershire_Scouting_1',
             layerName: 'layer_Leicestershire_Scouting_1',
             pane: 'pane_Leicestershire_Scouting_1',
@@ -345,155 +343,6 @@
                         });
                     }
                 }
-        var mapDiv = document.getElementById('map');
-        var row = document.createElement('div');
-        row.className="row";
-        row.id="all";
-        row.style.height = "100%";
-        var col1 = document.createElement('div');
-        col1.className="col9";
-        col1.id = "mapWindow";
-        col1.style.height = "99%";
-        col1.style.width = "80%";
-        col1.style.display = "inline-block";
-        var col2 = document.createElement('div');
-        col2.className="col3";
-        col2.id = "menu";
-        col2.style.display = "inline-block";
-        mapDiv.parentNode.insertBefore(row, mapDiv);
-        document.getElementById("all").appendChild(col1);
-        document.getElementById("all").appendChild(col2);
-        col1.appendChild(mapDiv)
-        var Filters = {"Name": "str"};
-        function filterFunc() {
-          map.eachLayer(function(lyr){
-          if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
-            try{
-              for (key in Filters){
-                if (Filters[key] == "str" || Filters[key] == "bool"){
-                  var selection = [];
-                  var options = document.getElementById("sel_" + key).options
-                  for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
-                  }
-                    try{
-                      if (key in features[0].properties){
-                        for (i = features.length - 1;
-                          i >= 0; --i){
-                          if (selection.indexOf(
-                          features[i].properties[key])<0
-                          && selection.length>0) {
-                          features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                  }
-                }
-                if (Filters[key] == "int"){
-                  sliderVals =  document.getElementById(
-                    "div_" + key).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (parseInt(features[i].properties[key])
-                          < sliderVals[0]
-                          || parseInt(features[i].properties[key])
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "real"){
-                  sliderVals =  document.getElementById(
-                    "div_" + key).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (features[i].properties[key]
-                          < sliderVals[0]
-                          || features[i].properties[key]
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
-              }
-            } catch(err){
-            }
-          this[lyr["options"]["layerName"]].clearLayers();
-          this[lyr["options"]["layerName"]].addData(features);
-          }
-          })
-        }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_Name = document.createElement('div');
-            div_Name.id = "div_Name";
-            div_Name.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Name);
-            sel_Name = document.createElement('select');
-            sel_Name.multiple = true;
-            sel_Name.size = 10;
-            sel_Name.id = "sel_Name";
-            var Name_options_str = "<option value='' unselected></option>";
-            sel_Name.onchange = function(){filterFunc()};
-            Name_options_str  += '<option value="Ashby Coalville">Ashby Coalville</option>';
-            Name_options_str  += '<option value="Campsite">Campsite</option>';
-            Name_options_str  += '<option value="Charnwood">Charnwood</option>';
-            Name_options_str  += '<option value="County ">County </option>';
-            Name_options_str  += '<option value="Hinckley">Hinckley</option>';
-            Name_options_str  += '<option value="Loughborough">Loughborough</option>';
-            Name_options_str  += '<option value="Market Harborough">Market Harborough</option>';
-            Name_options_str  += '<option value="Melton Mowbray">Melton Mowbray</option>';
-            Name_options_str  += '<option value="North East">North East</option>';
-            Name_options_str  += '<option value="South East">South East</option>';
-            Name_options_str  += '<option value="South Leics.">South Leics.</option>';
-            Name_options_str  += '<option value="South West">South West</option>';
-            sel_Name.innerHTML = Name_options_str;
-            div_Name.appendChild(sel_Name);
-            var lab_Name = document.createElement('div');
-            lab_Name.innerHTML = 'Name';
-            lab_Name.className = 'filterlabel';
-            div_Name.appendChild(lab_Name);
-            var reset_Name = document.createElement('div');
-            reset_Name.innerHTML = 'clear filter';
-            reset_Name.className = 'filterlabel';
-            reset_Name.onclick = function() {
-                var options = document.getElementById("sel_Name").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_Name.appendChild(reset_Name);
         resetLabels([layer_Leicestershire_Scouting_1]);
         map.on("zoomend", function(){
             resetLabels([layer_Leicestershire_Scouting_1]);

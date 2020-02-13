@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/R2R20FullAdelaideYularaDraftv1_1.js"></script>
+        <script src="data/R2R19MainCourseTownsvilleYularaMereenieOption_2.js"></script>
+        <script src="data/R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3.js"></script>
+        <script src="data/R2R19EntreePortDouglasTownsvilleRedTrackOption_4.js"></script>
+        <script src="data/R2R19EntreePortDouglasTownsvilleGunnawarraOption_5.js"></script>
+        <script src="data/R2R18MainCoursev8_6.js"></script>
+        <script src="data/R2R18Entreev3_7.js"></script>
+        <script src="data/R2R17Fullv2_8.js"></script>
+        <script src="data/R2R16Fullv6_9.js"></script>
+        <script src="data/R2R16EntreeMawsonTrail_10.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_R2R20FullAdelaideYularaDraftv1_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R20FullAdelaideYularaDraftv1_1_0() {
+            return {
+                pane: 'pane_R2R20FullAdelaideYularaDraftv1_1',
+                opacity: 1,
+                color: 'rgba(231,113,72,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R20FullAdelaideYularaDraftv1_1');
+        map.getPane('pane_R2R20FullAdelaideYularaDraftv1_1').style.zIndex = 401;
+        map.getPane('pane_R2R20FullAdelaideYularaDraftv1_1').style['mix-blend-mode'] = 'normal';
+        var layer_R2R20FullAdelaideYularaDraftv1_1 = new L.geoJson(json_R2R20FullAdelaideYularaDraftv1_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R20FullAdelaideYularaDraftv1_1',
+            layerName: 'layer_R2R20FullAdelaideYularaDraftv1_1',
+            pane: 'pane_R2R20FullAdelaideYularaDraftv1_1',
+            onEachFeature: pop_R2R20FullAdelaideYularaDraftv1_1,
+            style: style_R2R20FullAdelaideYularaDraftv1_1_0,
+        });
+        bounds_group.addLayer(layer_R2R20FullAdelaideYularaDraftv1_1);
+        map.addLayer(layer_R2R20FullAdelaideYularaDraftv1_1);
+        function pop_R2R19MainCourseTownsvilleYularaMereenieOption_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R19MainCourseTownsvilleYularaMereenieOption_2_0() {
+            return {
+                pane: 'pane_R2R19MainCourseTownsvilleYularaMereenieOption_2',
+                opacity: 1,
+                color: 'rgba(255,158,23,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R19MainCourseTownsvilleYularaMereenieOption_2');
+        map.getPane('pane_R2R19MainCourseTownsvilleYularaMereenieOption_2').style.zIndex = 402;
+        map.getPane('pane_R2R19MainCourseTownsvilleYularaMereenieOption_2').style['mix-blend-mode'] = 'normal';
+        var layer_R2R19MainCourseTownsvilleYularaMereenieOption_2 = new L.geoJson(json_R2R19MainCourseTownsvilleYularaMereenieOption_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R19MainCourseTownsvilleYularaMereenieOption_2',
+            layerName: 'layer_R2R19MainCourseTownsvilleYularaMereenieOption_2',
+            pane: 'pane_R2R19MainCourseTownsvilleYularaMereenieOption_2',
+            onEachFeature: pop_R2R19MainCourseTownsvilleYularaMereenieOption_2,
+            style: style_R2R19MainCourseTownsvilleYularaMereenieOption_2_0,
+        });
+        bounds_group.addLayer(layer_R2R19MainCourseTownsvilleYularaMereenieOption_2);
+        map.addLayer(layer_R2R19MainCourseTownsvilleYularaMereenieOption_2);
+        function pop_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3_0() {
+            return {
+                pane: 'pane_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3',
+                opacity: 1,
+                color: 'rgba(141,90,153,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3');
+        map.getPane('pane_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3').style.zIndex = 403;
+        map.getPane('pane_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3').style['mix-blend-mode'] = 'normal';
+        var layer_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3 = new L.geoJson(json_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3',
+            layerName: 'layer_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3',
+            pane: 'pane_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3',
+            onEachFeature: pop_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3,
+            style: style_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3_0,
+        });
+        bounds_group.addLayer(layer_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3);
+        map.addLayer(layer_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3);
+        function pop_R2R19EntreePortDouglasTownsvilleRedTrackOption_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R19EntreePortDouglasTownsvilleRedTrackOption_4_0() {
+            return {
+                pane: 'pane_R2R19EntreePortDouglasTownsvilleRedTrackOption_4',
+                opacity: 1,
+                color: 'rgba(164,113,88,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R19EntreePortDouglasTownsvilleRedTrackOption_4');
+        map.getPane('pane_R2R19EntreePortDouglasTownsvilleRedTrackOption_4').style.zIndex = 404;
+        map.getPane('pane_R2R19EntreePortDouglasTownsvilleRedTrackOption_4').style['mix-blend-mode'] = 'normal';
+        var layer_R2R19EntreePortDouglasTownsvilleRedTrackOption_4 = new L.geoJson(json_R2R19EntreePortDouglasTownsvilleRedTrackOption_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R19EntreePortDouglasTownsvilleRedTrackOption_4',
+            layerName: 'layer_R2R19EntreePortDouglasTownsvilleRedTrackOption_4',
+            pane: 'pane_R2R19EntreePortDouglasTownsvilleRedTrackOption_4',
+            onEachFeature: pop_R2R19EntreePortDouglasTownsvilleRedTrackOption_4,
+            style: style_R2R19EntreePortDouglasTownsvilleRedTrackOption_4_0,
+        });
+        bounds_group.addLayer(layer_R2R19EntreePortDouglasTownsvilleRedTrackOption_4);
+        map.addLayer(layer_R2R19EntreePortDouglasTownsvilleRedTrackOption_4);
+        function pop_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5_0() {
+            return {
+                pane: 'pane_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5',
+                opacity: 1,
+                color: 'rgba(114,155,111,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5');
+        map.getPane('pane_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5').style.zIndex = 405;
+        map.getPane('pane_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5').style['mix-blend-mode'] = 'normal';
+        var layer_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5 = new L.geoJson(json_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5',
+            layerName: 'layer_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5',
+            pane: 'pane_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5',
+            onEachFeature: pop_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5,
+            style: style_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5_0,
+        });
+        bounds_group.addLayer(layer_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5);
+        map.addLayer(layer_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5);
+        function pop_R2R18MainCoursev8_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R18MainCoursev8_6_0() {
+            return {
+                pane: 'pane_R2R18MainCoursev8_6',
+                opacity: 1,
+                color: 'rgba(125,139,143,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R18MainCoursev8_6');
+        map.getPane('pane_R2R18MainCoursev8_6').style.zIndex = 406;
+        map.getPane('pane_R2R18MainCoursev8_6').style['mix-blend-mode'] = 'normal';
+        var layer_R2R18MainCoursev8_6 = new L.geoJson(json_R2R18MainCoursev8_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R18MainCoursev8_6',
+            layerName: 'layer_R2R18MainCoursev8_6',
+            pane: 'pane_R2R18MainCoursev8_6',
+            onEachFeature: pop_R2R18MainCoursev8_6,
+            style: style_R2R18MainCoursev8_6_0,
+        });
+        bounds_group.addLayer(layer_R2R18MainCoursev8_6);
+        map.addLayer(layer_R2R18MainCoursev8_6);
+        function pop_R2R18Entreev3_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R18Entreev3_7_0() {
+            return {
+                pane: 'pane_R2R18Entreev3_7',
+                opacity: 1,
+                color: 'rgba(190,178,151,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R18Entreev3_7');
+        map.getPane('pane_R2R18Entreev3_7').style.zIndex = 407;
+        map.getPane('pane_R2R18Entreev3_7').style['mix-blend-mode'] = 'normal';
+        var layer_R2R18Entreev3_7 = new L.geoJson(json_R2R18Entreev3_7, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R18Entreev3_7',
+            layerName: 'layer_R2R18Entreev3_7',
+            pane: 'pane_R2R18Entreev3_7',
+            onEachFeature: pop_R2R18Entreev3_7,
+            style: style_R2R18Entreev3_7_0,
+        });
+        bounds_group.addLayer(layer_R2R18Entreev3_7);
+        map.addLayer(layer_R2R18Entreev3_7);
+        function pop_R2R17Fullv2_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R17Fullv2_8_0() {
+            return {
+                pane: 'pane_R2R17Fullv2_8',
+                opacity: 1,
+                color: 'rgba(229,182,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R17Fullv2_8');
+        map.getPane('pane_R2R17Fullv2_8').style.zIndex = 408;
+        map.getPane('pane_R2R17Fullv2_8').style['mix-blend-mode'] = 'normal';
+        var layer_R2R17Fullv2_8 = new L.geoJson(json_R2R17Fullv2_8, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R17Fullv2_8',
+            layerName: 'layer_R2R17Fullv2_8',
+            pane: 'pane_R2R17Fullv2_8',
+            onEachFeature: pop_R2R17Fullv2_8,
+            style: style_R2R17Fullv2_8_0,
+        });
+        bounds_group.addLayer(layer_R2R17Fullv2_8);
+        map.addLayer(layer_R2R17Fullv2_8);
+        function pop_R2R16Fullv6_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R16Fullv6_9_0() {
+            return {
+                pane: 'pane_R2R16Fullv6_9',
+                opacity: 1,
+                color: 'rgba(190,207,80,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R16Fullv6_9');
+        map.getPane('pane_R2R16Fullv6_9').style.zIndex = 409;
+        map.getPane('pane_R2R16Fullv6_9').style['mix-blend-mode'] = 'normal';
+        var layer_R2R16Fullv6_9 = new L.geoJson(json_R2R16Fullv6_9, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R16Fullv6_9',
+            layerName: 'layer_R2R16Fullv6_9',
+            pane: 'pane_R2R16Fullv6_9',
+            onEachFeature: pop_R2R16Fullv6_9,
+            style: style_R2R16Fullv6_9_0,
+        });
+        bounds_group.addLayer(layer_R2R16Fullv6_9);
+        map.addLayer(layer_R2R16Fullv6_9);
+        function pop_R2R16EntreeMawsonTrail_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cmt'] !== null ? Autolinker.link(feature.properties['cmt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['desc'] !== null ? Autolinker.link(feature.properties['desc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['src'] !== null ? Autolinker.link(feature.properties['src'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_href'] !== null ? Autolinker.link(feature.properties['link1_href'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_text'] !== null ? Autolinker.link(feature.properties['link1_text'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link1_type'] !== null ? Autolinker.link(feature.properties['link1_type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_href'] !== null ? Autolinker.link(feature.properties['link2_href'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_text'] !== null ? Autolinker.link(feature.properties['link2_text'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link2_type'] !== null ? Autolinker.link(feature.properties['link2_type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['number'] !== null ? Autolinker.link(feature.properties['number'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(feature.properties['type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_R2R16EntreeMawsonTrail_10_0() {
+            return {
+                pane: 'pane_R2R16EntreeMawsonTrail_10',
+                opacity: 1,
+                color: 'rgba(229,182,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_R2R16EntreeMawsonTrail_10');
+        map.getPane('pane_R2R16EntreeMawsonTrail_10').style.zIndex = 410;
+        map.getPane('pane_R2R16EntreeMawsonTrail_10').style['mix-blend-mode'] = 'normal';
+        var layer_R2R16EntreeMawsonTrail_10 = new L.geoJson(json_R2R16EntreeMawsonTrail_10, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_R2R16EntreeMawsonTrail_10',
+            layerName: 'layer_R2R16EntreeMawsonTrail_10',
+            pane: 'pane_R2R16EntreeMawsonTrail_10',
+            onEachFeature: pop_R2R16EntreeMawsonTrail_10,
+            style: style_R2R16EntreeMawsonTrail_10_0,
+        });
+        bounds_group.addLayer(layer_R2R16EntreeMawsonTrail_10);
+        map.addLayer(layer_R2R16EntreeMawsonTrail_10);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/R2R16EntreeMawsonTrail_10.png" /> R2R16 Entree Mawson Trail': layer_R2R16EntreeMawsonTrail_10,'<img src="legend/R2R16Fullv6_9.png" /> R2R16 Full v6': layer_R2R16Fullv6_9,'<img src="legend/R2R17Fullv2_8.png" /> R2R17 Full v2': layer_R2R17Fullv2_8,'<img src="legend/R2R18Entreev3_7.png" /> R2R18 Entree v3': layer_R2R18Entreev3_7,'<img src="legend/R2R18MainCoursev8_6.png" /> R2R18 Main Course v8': layer_R2R18MainCoursev8_6,'<img src="legend/R2R19EntreePortDouglasTownsvilleGunnawarraOption_5.png" /> R2R19 Entree Port Douglas -Townsville (Gunnawarra Option)': layer_R2R19EntreePortDouglasTownsvilleGunnawarraOption_5,'<img src="legend/R2R19EntreePortDouglasTownsvilleRedTrackOption_4.png" /> R2R19 Entree Port Douglas -Townsville (Red Track Option)': layer_R2R19EntreePortDouglasTownsvilleRedTrackOption_4,'<img src="legend/R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3.png" /> R2R19 Main Course Townsville - Yulara (Finke Gorge Option)': layer_R2R19MainCourseTownsvilleYularaFinkeGorgeOption_3,'<img src="legend/R2R19MainCourseTownsvilleYularaMereenieOption_2.png" /> R2R19 Main Course Townsville - Yulara (Mereenie Option) ': layer_R2R19MainCourseTownsvilleYularaMereenieOption_2,'<img src="legend/R2R20FullAdelaideYularaDraftv1_1.png" /> R2R20 Full Adelaide - Yulara Draft  v1 ': layer_R2R20FullAdelaideYularaDraftv1_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

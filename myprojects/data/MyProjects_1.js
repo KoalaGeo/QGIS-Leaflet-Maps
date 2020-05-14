@@ -1,6 +1,6 @@
-var json_MyProjects_2 = {
+var json_MyProjects_1 = {
 "type": "FeatureCollection",
-"name": "MyProjects_2",
+"name": "MyProjects_1",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "fid": "1", "Project Name": "Dummond Basin", "Project Owner": "Geoscience Australia", "Employer": "SRK Consulting", "Commodity": "Petroleum", "Year From": 2014.0, "Year To": 2014.0, "Description": "DD & Valuation" }, "geometry": { "type": "Point", "coordinates": [ 146.391023283955406, -21.707450919209734 ] } },

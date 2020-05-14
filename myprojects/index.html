@@ -30,7 +30,7 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="data/MyProjects_2.js"></script>
+        <script src="data/MyProjects_1.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -53,17 +53,7 @@
         });
         layer_OSMBasemap_0;
         map.addLayer(layer_OSMBasemap_0);
-        var layer_BingSatellite_1 = L.tileLayer('http://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=0&dir=dir_n'', {
-            opacity: 0.5,
-            attribution: '',
-            minZoom: 1,
-            maxZoom: 28,
-            minNativeZoom: 1,
-            maxNativeZoom: 18
-        });
-        layer_BingSatellite_1;
-        map.addLayer(layer_BingSatellite_1);
-        function pop_MyProjects_2(feature, layer) {
+        function pop_MyProjects_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">fid</th>\
@@ -101,11 +91,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_MyProjects_2_0(feature) {
+        function style_MyProjects_1_0(feature) {
             switch(String(feature.properties['Commodity'])) {
                 case 'Aggregate':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -121,7 +111,7 @@
                     break;
                 case 'Alluvial Gold':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -137,7 +127,7 @@
                     break;
                 case 'Au':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -153,7 +143,7 @@
                     break;
                 case 'Bauxite':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -169,7 +159,7 @@
                     break;
                 case 'CSG':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -185,7 +175,7 @@
                     break;
                 case 'Cu':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -201,7 +191,7 @@
                     break;
                 case 'Cu-Au Porphyry':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -217,7 +207,7 @@
                     break;
                 case 'Cu-Au VMS':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -233,7 +223,7 @@
                     break;
                 case 'Digital':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -249,7 +239,7 @@
                     break;
                 case 'Fe':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -265,7 +255,7 @@
                     break;
                 case 'Met Coal':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -281,7 +271,7 @@
                     break;
                 case 'Mo':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -297,7 +287,7 @@
                     break;
                 case 'Petroleum':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -313,7 +303,7 @@
                     break;
                 case 'Si & Feldspar':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -329,7 +319,7 @@
                     break;
                 case 'Sn':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -345,7 +335,7 @@
                     break;
                 case 'Ta-Nb-REE':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -361,7 +351,7 @@
                     break;
                 case 'U':
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -377,7 +367,7 @@
                     break;
                 default:
                     return {
-                pane: 'pane_MyProjects_2',
+                pane: 'pane_MyProjects_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -393,28 +383,28 @@
                     break;
             }
         }
-        map.createPane('pane_MyProjects_2');
-        map.getPane('pane_MyProjects_2').style.zIndex = 402;
-        map.getPane('pane_MyProjects_2').style['mix-blend-mode'] = 'normal';
-        var layer_MyProjects_2 = new L.geoJson(json_MyProjects_2, {
+        map.createPane('pane_MyProjects_1');
+        map.getPane('pane_MyProjects_1').style.zIndex = 401;
+        map.getPane('pane_MyProjects_1').style['mix-blend-mode'] = 'normal';
+        var layer_MyProjects_1 = new L.geoJson(json_MyProjects_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_MyProjects_2',
-            layerName: 'layer_MyProjects_2',
-            pane: 'pane_MyProjects_2',
-            onEachFeature: pop_MyProjects_2,
+            dataVar: 'json_MyProjects_1',
+            layerName: 'layer_MyProjects_1',
+            pane: 'pane_MyProjects_1',
+            onEachFeature: pop_MyProjects_1,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_MyProjects_2_0(feature));
+                return L.circleMarker(latlng, style_MyProjects_1_0(feature));
             },
         });
-        bounds_group.addLayer(layer_MyProjects_2);
-        map.addLayer(layer_MyProjects_2);
+        bounds_group.addLayer(layer_MyProjects_1);
+        map.addLayer(layer_MyProjects_1);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'My Projects<br /><table><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Aggregate0.png" /></td><td>Aggregate</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_AlluvialGold1.png" /></td><td>Alluvial Gold</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Au2.png" /></td><td>Au</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Bauxite3.png" /></td><td>Bauxite</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_CSG4.png" /></td><td>CSG</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Cu5.png" /></td><td>Cu</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_CuAuPorphyry6.png" /></td><td>Cu-Au Porphyry</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_CuAuVMS7.png" /></td><td>Cu-Au VMS</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Digital8.png" /></td><td>Digital</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Fe9.png" /></td><td>Fe</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_MetCoal10.png" /></td><td>Met Coal</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Mo11.png" /></td><td>Mo</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Petroleum12.png" /></td><td>Petroleum</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_SiFeldspar13.png" /></td><td>Si & Feldspar</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_Sn14.png" /></td><td>Sn</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_TaNbREE15.png" /></td><td>Ta-Nb-REE</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_U16.png" /></td><td>U</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_2_17.png" /></td><td></td></tr></table>': layer_MyProjects_2,"Bing Satellite": layer_BingSatellite_1,"OSM Basemap": layer_OSMBasemap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'My Projects<br /><table><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Aggregate0.png" /></td><td>Aggregate</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_AlluvialGold1.png" /></td><td>Alluvial Gold</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Au2.png" /></td><td>Au</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Bauxite3.png" /></td><td>Bauxite</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_CSG4.png" /></td><td>CSG</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Cu5.png" /></td><td>Cu</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_CuAuPorphyry6.png" /></td><td>Cu-Au Porphyry</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_CuAuVMS7.png" /></td><td>Cu-Au VMS</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Digital8.png" /></td><td>Digital</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Fe9.png" /></td><td>Fe</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_MetCoal10.png" /></td><td>Met Coal</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Mo11.png" /></td><td>Mo</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Petroleum12.png" /></td><td>Petroleum</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_SiFeldspar13.png" /></td><td>Si & Feldspar</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Sn14.png" /></td><td>Sn</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_TaNbREE15.png" /></td><td>Ta-Nb-REE</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_U16.png" /></td><td>U</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_17.png" /></td><td></td></tr></table>': layer_MyProjects_1,"OSM Basemap": layer_OSMBasemap_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>

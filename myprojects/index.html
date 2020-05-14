@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/MyProjects_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        var layer_OSMBasemap_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMBasemap_0;
+        map.addLayer(layer_OSMBasemap_0);
+        function pop_MyProjects_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">fid</th>\
+                        <td>' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Project Name</th>\
+                        <td>' + (feature.properties['Project Name'] !== null ? Autolinker.link(feature.properties['Project Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Project Owner</th>\
+                        <td>' + (feature.properties['Project Owner'] !== null ? Autolinker.link(feature.properties['Project Owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Employer</th>\
+                        <td>' + (feature.properties['Employer'] !== null ? Autolinker.link(feature.properties['Employer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Commodity</th>\
+                        <td>' + (feature.properties['Commodity'] !== null ? Autolinker.link(feature.properties['Commodity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Year From</th>\
+                        <td>' + (feature.properties['Year From'] !== null ? Autolinker.link(feature.properties['Year From'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Year To</th>\
+                        <td>' + (feature.properties['Year To'] !== null ? Autolinker.link(feature.properties['Year To'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Description</th>\
+                        <td>' + (feature.properties['Description'] !== null ? Autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MyProjects_1_0(feature) {
+            switch(String(feature.properties['Commodity'])) {
+                case 'Aggregate':
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,41,186,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bauxite':
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,92,46,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'CSG':
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,178,205,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Met Coal':
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,226,13,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Petroleum':
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,19,201,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(65,232,113,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Ta-Nb-REE':
+                    return {
+                pane: 'pane_MyProjects_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(70,208,141,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_MyProjects_1');
+        map.getPane('pane_MyProjects_1').style.zIndex = 401;
+        map.getPane('pane_MyProjects_1').style['mix-blend-mode'] = 'normal';
+        var layer_MyProjects_1 = new L.geoJson(json_MyProjects_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MyProjects_1',
+            layerName: 'layer_MyProjects_1',
+            pane: 'pane_MyProjects_1',
+            onEachFeature: pop_MyProjects_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_MyProjects_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_MyProjects_1);
+        map.addLayer(layer_MyProjects_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'My Projects<br /><table><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Aggregate0.png" /></td><td>Aggregate</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Bauxite1.png" /></td><td>Bauxite</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_CSG2.png" /></td><td>CSG</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_MetCoal3.png" /></td><td>Met Coal</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_Petroleum4.png" /></td><td>Petroleum</td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_5.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/MyProjects_1_TaNbREE6.png" /></td><td>Ta-Nb-REE</td></tr></table>': layer_MyProjects_1,"OSM Basemap": layer_OSMBasemap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

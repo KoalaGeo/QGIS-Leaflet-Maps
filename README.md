@@ -16,3 +16,6 @@ https://koalageo.github.io/QGIS-Leaflet-Maps/Leicestershire_Scouting
 
 https://koalageo.github.io/QGIS-Leaflet-Maps/R2R
 
+https://koalageo.github.io/QGIS-Leaflet-Maps/myprojects
+
+https://koalageo.github.io/QGIS-Leaflet-Maps/myprojectsgeologybase

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="data/projects_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        var layer_OSMBasemap_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMBasemap_0;
+        map.addLayer(layer_OSMBasemap_0);
+        var layer_WorldCGMW150MGeologicalUnitsOnshore_1 = L.WMS.layer("http://mapsref.brgm.fr/wxs/1GG/CGMW_Bedrock_and_Structural_Geology?version=1.3.0", "World_CGMW_50M_GeologicalUnitsOnshore", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_WorldCGMW150MGeologicalUnitsOnshore_1);
+        function pop_projects_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">fid</th>\
+                        <td>' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Project Name</th>\
+                        <td>' + (feature.properties['Project Name'] !== null ? Autolinker.link(feature.properties['Project Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Project Owner</th>\
+                        <td>' + (feature.properties['Project Owner'] !== null ? Autolinker.link(feature.properties['Project Owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Employer</th>\
+                        <td>' + (feature.properties['Employer'] !== null ? Autolinker.link(feature.properties['Employer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Commodity</th>\
+                        <td>' + (feature.properties['Commodity'] !== null ? Autolinker.link(feature.properties['Commodity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Year From</th>\
+                        <td>' + (feature.properties['Year From'] !== null ? Autolinker.link(feature.properties['Year From'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Year To</th>\
+                        <td>' + (feature.properties['Year To'] !== null ? Autolinker.link(feature.properties['Year To'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Description</th>\
+                        <td>' + (feature.properties['Description'] !== null ? Autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_projects_2_0(feature) {
+            switch(String(feature.properties['Commodity'])) {
+                case 'Aggregate':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(216,63,232,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Alluvial Gold':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,45,64,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Au':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(90,183,214,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bauxite':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,121,95,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'CSG':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(218,66,183,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cu':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(83,97,219,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cu-Au Porphyry':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(99,64,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cu-Au VMS':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(121,225,41,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Digital':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(86,202,113,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Fe':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(69,225,160,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Met Coal':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(187,236,26,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mo':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,132,41,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Petroleum':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(69,231,51,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Si & Feldspar':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(39,122,229,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sn':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(200,49,115,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Ta-Nb-REE':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(146,41,225,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'U':
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(58,231,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_projects_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,207,52,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_projects_2');
+        map.getPane('pane_projects_2').style.zIndex = 402;
+        map.getPane('pane_projects_2').style['mix-blend-mode'] = 'normal';
+        var layer_projects_2 = new L.geoJson(json_projects_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_projects_2',
+            layerName: 'layer_projects_2',
+            pane: 'pane_projects_2',
+            onEachFeature: pop_projects_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_projects_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_projects_2);
+        map.addLayer(layer_projects_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'projects<br /><table><tr><td style="text-align: center;"><img src="legend/projects_2_Aggregate0.png" /></td><td>Aggregate</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_AlluvialGold1.png" /></td><td>Alluvial Gold</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Au2.png" /></td><td>Au</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Bauxite3.png" /></td><td>Bauxite</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_CSG4.png" /></td><td>CSG</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Cu5.png" /></td><td>Cu</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_CuAuPorphyry6.png" /></td><td>Cu-Au Porphyry</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_CuAuVMS7.png" /></td><td>Cu-Au VMS</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Digital8.png" /></td><td>Digital</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Fe9.png" /></td><td>Fe</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_MetCoal10.png" /></td><td>Met Coal</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Mo11.png" /></td><td>Mo</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Petroleum12.png" /></td><td>Petroleum</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_SiFeldspar13.png" /></td><td>Si & Feldspar</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_Sn14.png" /></td><td>Sn</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_TaNbREE15.png" /></td><td>Ta-Nb-REE</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_U16.png" /></td><td>U</td></tr><tr><td style="text-align: center;"><img src="legend/projects_2_17.png" /></td><td></td></tr></table>': layer_projects_2,"World CGMW 1:50M Geological Units Onshore": layer_WorldCGMW150MGeologicalUnitsOnshore_1,"OSM Basemap": layer_OSMBasemap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

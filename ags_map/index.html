@@ -41,7 +41,8 @@
 	var wmsLayer = L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/AGS/AGS_Export/MapServer/WMSServer?', {
 		layers: 'Boreholes',
     format: 'image/png',
-    transparent: true		
+    transparent: true,
+    attribution: "AGS Data from British Geological Survey",
 	}).addTo(map);
 
   var drawnItems = new L.FeatureGroup();
@@ -80,6 +81,14 @@ map.on('draw:created', function (e) {
         drawnItems.addLayer(layer);
     }
 });
+  
+map.on('click', function(e) {        
+        var popLocation= e.latlng;
+        var popup = L.popup()
+        .setLatLng(popLocation)
+        .setContent('<p>Wheres my AGS Data!!</p>')
+        .openOn(map);        
+    });
   
 </script>
 

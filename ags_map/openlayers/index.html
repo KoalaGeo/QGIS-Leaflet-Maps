@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>WMS GetLegendGraphic</title>
+    <title>WMS GetFeatureInfo (Image Layer)</title>
     <link rel="stylesheet" href="node_modules/ol/ol.css">
     <style>
       .map {
@@ -13,8 +13,7 @@
   </head>
   <body>
     <div id="map" class="map"></div>
-    Legend:
-    <div><img id="legend"/></div>
+    <div id="info">&nbsp;</div>
     <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
     <script src="https://cdn.jsdelivr.net/npm/elm-pep@1.0.6/dist/elm-pep.js"></script>
     <script type="module" src="main.js"></script>

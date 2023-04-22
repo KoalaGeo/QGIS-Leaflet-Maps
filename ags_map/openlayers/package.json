@@ -1,5 +1,5 @@
 {
-    "name": "wms-getlegendgraphic",
+    "name": "getfeatureinfo-image",
     "dependencies": {
       "ol": "7.3.0"
     },

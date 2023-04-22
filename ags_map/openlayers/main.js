@@ -1,47 +1,53 @@
+import ImageLayer from 'ol/layer/Image.js';
 import ImageWMS from 'ol/source/ImageWMS.js';
 import Map from 'ol/Map.js';
-import OSM from 'ol/source/OSM.js';
 import View from 'ol/View.js';
-import {Image as ImageLayer, Tile as TileLayer} from 'ol/layer.js';
 
 const wmsSource = new ImageWMS({
   url: 'https://ahocevar.com/geoserver/wms',
-  params: {'LAYERS': 'topp:states'},
-  ratio: 1,
+  params: {'LAYERS': 'ne:ne'},
   serverType: 'geoserver',
+  crossOrigin: 'anonymous',
 });
 
-const updateLegend = function (resolution) {
-  const graphicUrl = wmsSource.getLegendUrl(resolution);
-  const img = document.getElementById('legend');
-  img.src = graphicUrl;
-};
+const wmsLayer = new ImageLayer({
+  source: wmsSource,
+});
 
-const layers = [
-  new TileLayer({
-    source: new OSM(),
-  }),
-  new ImageLayer({
-    extent: [-13884991, 2870341, -7455066, 6338219],
-    source: wmsSource,
-  }),
-];
+const view = new View({
+  center: [0, 0],
+  zoom: 1,
+});
 
 const map = new Map({
-  layers: layers,
+  layers: [wmsLayer],
   target: 'map',
-  view: new View({
-    center: [-10997148, 4569099],
-    zoom: 4,
-  }),
+  view: view,
 });
 
-// Initial legend
-const resolution = map.getView().getResolution();
-updateLegend(resolution);
+map.on('singleclick', function (evt) {
+  document.getElementById('info').innerHTML = '';
+  const viewResolution = /** @type {number} */ (view.getResolution());
+  const url = wmsSource.getFeatureInfoUrl(
+    evt.coordinate,
+    viewResolution,
+    'EPSG:3857',
+    {'INFO_FORMAT': 'text/html'}
+  );
+  if (url) {
+    fetch(url)
+      .then((response) => response.text())
+      .then((html) => {
+        document.getElementById('info').innerHTML = html;
+      });
+  }
+});
 
-// Update the legend when the resolution changes
-map.getView().on('change:resolution', function (event) {
-  const resolution = event.target.getResolution();
-  updateLegend(resolution);
+map.on('pointermove', function (evt) {
+  if (evt.dragging) {
+    return;
+  }
+  const data = wmsLayer.getData(evt.pixel);
+  const hit = data && data[3] > 0; // transparent pixels have zero for data[3]
+  map.getTargetElement().style.cursor = hit ? 'pointer' : '';
 });

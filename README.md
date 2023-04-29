@@ -19,3 +19,7 @@ https://koalageo.github.io/QGIS-Leaflet-Maps/R2R
 https://koalageo.github.io/QGIS-Leaflet-Maps/myprojects
 
 https://koalageo.github.io/QGIS-Leaflet-Maps/myprojectsgeologybase
+
+https://koalageo.rocks/QGIS-Leaflet-Maps/ags_map/
+
+https://koalageo.rocks/QGIS-Leaflet-Maps/ogcapi/

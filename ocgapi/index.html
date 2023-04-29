@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Leaflet.FeatureGroup.OGCAPI demo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--	<script src="./node_modules/leaflet/dist/leaflet-src.js"></script>
+	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />-->
+
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet/dist/leaflet.css"
+			crossorigin=""
+		/>
+		<script
+			src="https://unpkg.com/leaflet/dist/leaflet-src.js"
+			crossorigin=""
+		></script>
+
+		<script src="./Leaflet.FeatureGroup.OGCAPI.js"></script>
+	</head>
+	<body>
+		<div id="map" style="width: 800px; height: 600px"></div>
+
+		<script>
+			var map = L.map("map", {});
+
+			var positron = L.tileLayer(
+				"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+				{
+					attribution:
+						'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+				}
+			).addTo(map);
+
+			var trees = L.featureGroup
+				.ogcApi("https://maps.ecere.com/ogcapi/", {
+					collection: "SanDiegoCDB:Trees",
+					onEachFeature: function (feat, layer) {
+						layer.bindPopup(Object.entries(feat.properties).join("<br>"));
+					},
+				})
+				.addTo(map);
+
+			trees.once("ready", function (ev) {
+				map.fitBounds(trees.getBounds());
+			});
+		</script>
+	</body>
+</html>

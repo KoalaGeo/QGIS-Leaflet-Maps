@@ -1,96 +1,79 @@
+<!DOCTYPE html>
 <html>
-<head>
-	
-	<title>WMS example - Leaflet</title>
+	<head>
+		<title>Leaflet.FeatureGroup.OGCAPI demo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+		<!--	<script src="./node_modules/leaflet/dist/leaflet-src.js"></script>
+	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />-->
 
-	<link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
-	<script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-	<style>
-		#map {
-			width:600px;
-			height: 500px;
-		}
-	</style>
-	
-</head>
-  
-  
-<body>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet/dist/leaflet.css"
+			crossorigin=""
+		/>
+		<script
+			src="https://unpkg.com/leaflet/dist/leaflet-src.js"
+			crossorigin=""
+		></script>
 
-<div id='map'></div>
+		<script src="js/Leaflet.FeatureGroup.OGCAPI.js"></script>
+	</head>
+	<body>
+		<div id="map" style="width: 800px; height: 600px"></div>
 
-<script type="text/javascript">
+		<script>
+			var map = L.map("map", {
+				center: [52.74, -1.5],
+    			zoom: 10,
+			});
 
-	var map = L.map('map', {
-		center: [56, -5],
-		zoom: 5
-	});
-  
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+			var positron = L.tileLayer(
+				"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+				{
+					attribution:
+						'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+				}
+			).addTo(map);
 
-	var wmsLayer = L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/AGS/AGS_Export/MapServer/WMSServer?', {
-		layers: 'Boreholes',
-    format: 'image/png',
-    transparent: true,
-    attribution: "AGS Data from British Geological Survey",
-	}).addTo(map);
+			var wmsLayer = L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/AGS/AGS_Export/MapServer/WMSServer?', {
+				layers: 'Boreholes',
+  				format: 'image/png',
+   				transparent: true,
+    			attribution: "AGS Data from British Geological Survey",
+			}).addTo(map);
+			
+			var agsboreholes = L.featureGroup
+			.ogcApi("https://ogcapi.bgs.ac.uk/", {
+				collection: "agsboreholeindex",
+				onEachFeature: function (feat, layer) {
+					var properties = feat.properties;
+					var popupContent = "<b>AGS Borehole Information</b><br><hr>" +
+						"<b>BGS LOCA ID: </b>" + properties.bgs_loca_id + "<br>" +
+						"<b>Depth (m): </b>" + properties.loca_fdep + "<br>" +
+						"<b>Project Name: </b>" + properties.proj_name + "<br>" +
+						"<b>Project Engineer: </b>" + properties.proj_eng + "<br>" +
+						"<b>Project Contractor: </b>" + properties.proj_cont + "<br>" +
+						"<b>Original LOCA ID: </b>" + properties.loca_id + "<br>" +
+						"<b>AGS Graphical Log: </b>" + "<a href=" + properties.ags_log_url + " target=" + "_blank" + ">View</a>" + "<br>" +
+						"<b>AGS Submission Record (raw data): </b>" + "<a href=" + properties.dad_item_url + " target=" + "_blank" + ">View</a>" + "<br>";
+					layer.bindPopup(popupContent);
+				},
+			})
+			.addTo(map);
 
-  var drawnItems = new L.FeatureGroup();
-map.addLayer(drawnItems);
+			// map.on("zoomend", function () {
+			// if (map.getZoom() >= 9 && !map.hasLayer(agsboreholes)) {
+			// 	agsboreholes.addTo(map);
+			// } else if (map.getZoom() < 9 && map.hasLayer(agsboreholes)) {
+			// 	map.removeLayer(agsboreholes);
+			// }
+			// });
 
-var drawControl = new L.Control.Draw({
-    draw: {
-        polyline: false,
-        circle: false,
-        rectangle: false,
-        marker: false,
-        circlemarker: false,
-        polygon: {
-            allowIntersection: false,
-            drawError: {
-                color: '#e1e100',
-                message: '<strong>Oh snap!<strong> you can\'t draw that!'
-            },
-            shapeOptions: {
-                color: '#97009c'
-            }
-        }
-    },
-    edit: {
-        featureGroup: drawnItems
-    }
-});
-map.addControl(drawControl);
-
-map.on('draw:created', function (e) {
-    var type = e.layerType,
-        layer = e.layer;
-
-    if (type === 'polygon') {
-        // Do something with the polygon, e.g. add it to the map
-        drawnItems.addLayer(layer);
-    }
-});
-  
-map.on('click', function(e) {        
-        var popLocation= e.latlng;
-        var popup = L.popup()
-        .setLatLng(popLocation)
-        .setContent('<p>Wheres my AGS Data!!</p>')
-        .openOn(map);        
-    });
-  
-</script>
-
-</body>
+			agsboreholes.once("ready", function (ev) {
+				map.fitBounds(agsboreholes.getBounds());
+			});
+		</script>
+	</body>
 </html>

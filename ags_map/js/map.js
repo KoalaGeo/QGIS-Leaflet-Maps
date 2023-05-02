@@ -46,11 +46,6 @@ var map = L.map("map", {
     layers: [esri, positron, wmsLayer, agsboreholes]
 });
 
-L.control.layers({
-    "Esri": esri,
-    "Positron": positron
-}).addTo(map);
-
 agsboreholes.once("ready", function (ev) {
     map.fitBounds(agsboreholes.getBounds());
 });

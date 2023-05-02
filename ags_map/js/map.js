@@ -1,22 +1,26 @@
-var map = L.map("map", {
-    center: [54.093409, -2.89479],
-    zoom: 6,
+mapLink = 
+    '<a href="http://www.esri.com/">Esri</a>';
+
+wholink = 
+    'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+
+var esri = L.tileLayer(
+    'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '&copy; '+mapLink+', '+wholink,
+    maxZoom: 18,
 });
 
 var positron = L.tileLayer(
-    "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-    {
-        attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    }
-).addTo(map);
+    "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',    
+});
 
 var wmsLayer = L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/AGS/AGS_Export/MapServer/WMSServer?', {
     layers: 'Boreholes',
-      format: 'image/png',
-       transparent: true,
+    format: 'image/png',
+    transparent: true,
     attribution: "AGS Data from British Geological Survey",
-}).addTo(map);
+});
 
 var agsboreholes = L.featureGroup
 .ogcApi("https://ogcapi.bgs.ac.uk/", {
@@ -34,8 +38,18 @@ var agsboreholes = L.featureGroup
             "<b>AGS Submission Record (raw data): </b>" + "<a href=" + properties.dad_item_url + " target=" + "_blank" + ">View</a>" + "<br>";
         layer.bindPopup(popupContent);
     },
-})
-.addTo(map);
+});
+
+var map = L.map("map", {
+    center: [54.093409, -2.89479],
+    zoom: 6,
+    layers: [esri, positron, wmsLayer, agsboreholes]
+});
+
+L.control.layers({
+    "Esri": esri,
+    "Positron": positron
+}).addTo(map);
 
 agsboreholes.once("ready", function (ev) {
     map.fitBounds(agsboreholes.getBounds());

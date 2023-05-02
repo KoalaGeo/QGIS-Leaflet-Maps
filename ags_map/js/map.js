@@ -1,6 +1,6 @@
 var map = L.map("map", {
     center: [52.74, -1.5],
-    zoom: 5,
+    zoom: 6,
 });
 
 var positron = L.tileLayer(

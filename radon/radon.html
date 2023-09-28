@@ -21,16 +21,67 @@
               url: "radon.pmtiles",
               attributions: ["© Land Information New Zealand"]
             }),
-            style: new ol.style.Style({
-              stroke: new ol.style.Stroke({
-                color: 'gray',
+            style: function(feature) {
+            // Get the Class_Max attribute value from the feature
+            const classMax = feature.get("Class_Max");
+
+            // Define styles for different attribute values
+            let style;
+            if (classMax === 1) {
+            style = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: 'red',
                 width: 1,
-              }),
-              fill: new ol.style.Fill({
-                color: 'rgba(20,20,20,0.9)',
-              })
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 0, 0, 0.9)',
             })
-          });
+            });
+            } else if (classMax === 2) {
+                style = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: 'red',
+                width: 1,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 0, 0, 0.9)',
+            })
+            });
+            } else if (classMax === 3) {
+                style = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: 'red',
+                width: 1,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 0, 0, 0.9)',
+            })
+            });
+            } else if (classMax === 4) {
+                style = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: 'red',
+                width: 1,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 0, 0, 0.9)',
+            })
+            });
+            } else if (classMax === 5) {
+                style = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: 'red',
+                width: 1,
+            }),
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 0, 0, 0.9)',
+            })
+            });
+            }
+
+            return style;
+            }
+            });
 
           ol.proj.useGeographic();
           const map = new ol.Map({

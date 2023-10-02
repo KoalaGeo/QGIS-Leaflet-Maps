@@ -18,16 +18,16 @@
           const vectorLayer = new ol.layer.VectorTile({
             declutter: true,
             source: new olpmtiles.PMTilesVectorSource({
-              url: "radon.pmtiles",
-              attributions: ["© Land Information New Zealand"]
+              url: "radon_v2.pmtiles",
+              attributions: ["© British Geological Survey"]
             }),
             style: new ol.style.Style({
               stroke: new ol.style.Stroke({
-                color: 'gray',
+                color: 'red',
                 width: 1,
               }),
               fill: new ol.style.Fill({
-                color: 'rgba(20,20,20,0.9)',
+                color: 'rgba(240,0,0,1)',
               })
             })
           });

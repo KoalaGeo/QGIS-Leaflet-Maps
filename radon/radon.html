@@ -15,52 +15,54 @@
     <body>
         <div id="map"></div>
         <script type="text/javascript">
+          // Create a style function that maps CLASS_MAX values to styles
+          function getStyle(feature) {
+            const classMax = feature.get("CLASS_MAX");
+        
+            // Define your style categories and corresponding styles here
+            // Adjust the conditions and styles to match your data
+            if (classMax === 1) {
+              return new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: 'red',
+                  width: 1,
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(240, 0, 0, 1)',
+                })
+              });
+            } else if (classMax === 2) {
+              return new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: 'blue',
+                  width: 1,
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(0, 0, 240, 1)',
+                })
+              });
+            }
+            // Add more conditions and styles for other attribute values as needed
+        
+            // Default style if no condition matches
+            return new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                color: 'gray',
+                width: 1,
+              }),
+              fill: new ol.style.Fill({
+                color: 'rgba(128, 128, 128, 1)',
+              })
+            });
+          }
+        
           const vectorLayer = new ol.layer.VectorTile({
             declutter: true,
             source: new olpmtiles.PMTilesVectorSource({
               url: "radon_v2.pmtiles",
               attributions: ["© British Geological Survey"]
             }),
-            style: function (feature) {
-              // Get the "CLASS_MAX" attribute value from the feature's properties
-              const classMax = feature.get("CLASS_MAX");
-        
-              // Define your style categories and corresponding styles here
-              // Adjust the conditions and styles to match your data
-              if (classMax === 1) {
-                return new ol.style.Style({
-                  stroke: new ol.style.Stroke({
-                    color: 'red',
-                    width: 1,
-                  }),
-                  fill: new ol.style.Fill({
-                    color: 'rgba(240, 0, 0, 1)',
-                  })
-                });
-              } else if (classMax === 2) {
-                return new ol.style.Style({
-                  stroke: new ol.style.Stroke({
-                    color: 'blue',
-                    width: 1,
-                  }),
-                  fill: new ol.style.Fill({
-                    color: 'rgba(0, 0, 240, 1)',
-                  })
-                });
-              }
-              // Add more conditions and styles for other attribute values as needed
-        
-              // Default style if no condition matches
-              return new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: 'gray',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: 'rgba(128, 128, 128, 1)',
-                })
-              });
-            }
+            style: getStyle // Use the custom style function for styling
           });
         
           ol.proj.useGeographic();
@@ -72,6 +74,6 @@
               zoom: 5
             }),
           });
-        </script>
+        </script>        
     </body>
 </html>

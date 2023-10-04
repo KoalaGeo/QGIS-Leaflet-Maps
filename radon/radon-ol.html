@@ -22,7 +22,7 @@
         
             // Define your style categories and corresponding styles here
             // Adjust the conditions and styles to match your data
-            if (classMax === 1) {
+            if (classMax === "1") {
               return new ol.style.Style({
                 stroke: new ol.style.Stroke({
                   color: 'red',
@@ -32,7 +32,7 @@
                   color: 'rgba(240, 0, 0, 1)',
                 })
               });
-            } else if (classMax === 2) {
+            } else if (classMax === "2") {
               return new ol.style.Style({
                 stroke: new ol.style.Stroke({
                   color: 'blue',
@@ -63,7 +63,7 @@
               url: "radon_v2.pmtiles",
               attributions: ["© British Geological Survey"]
             }),
-            style: getStyle // Use the custom style function for styling
+            style: getStyle() // Use the custom style function for styling
           });
         
           ol.proj.useGeographic();

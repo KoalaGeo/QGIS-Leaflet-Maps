@@ -25,21 +25,61 @@
             if (classMax === "1") {
               return new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                  color: 'red',
+                  color: '#fef0d9',
                   width: 1,
                 }),
                 fill: new ol.style.Fill({
-                  color: 'rgba(240, 0, 0, 1)',
+                  color: '#fef0d9',
                 })
               });
             } else if (classMax === "2") {
               return new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                  color: 'blue',
+                  color: '#e7bc9f',
                   width: 1,
                 }),
                 fill: new ol.style.Fill({
-                  color: 'rgba(0, 0, 240, 1)',
+                  color: '#e7bc9f',
+                })
+              });
+            } else if (classMax === "3") {
+              style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: '#c5a29f',
+                  width: 1,
+                }),
+                fill: new ol.style.Fill({
+                  color: '#c5a29f', // Orange color
+                })
+              });
+            } else if (classMax === "4") {
+              style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: '#b06c72',
+                  width: 1,
+                }),
+                fill: new ol.style.Fill({
+                  color: '#b06c72', // Brown color
+                })
+              });
+            } else if (classMax === "5") {
+              style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: '#9a3c52',
+                  width: 1,
+                }),
+                fill: new ol.style.Fill({
+                  color: '#9a3c52', // Green color
+                })
+              });
+            } else if (classMax === "6") {
+              style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: '#762e3f',
+                  width: 1,
+                }),
+                fill: new ol.style.Fill({
+                  color: '#762e3f', 
                 })
               });
             }

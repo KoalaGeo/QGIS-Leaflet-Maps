@@ -1,113 +1,121 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>PMTiles Radon Vector Example</title>
-        <meta charset="utf-8"/>
-        <script src="https://cdn.jsdelivr.net/npm/ol@v8.1/dist/ol.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1/ol.css">
-        <script src="https://unpkg.com/ol-pmtiles@0.3.0/dist/olpmtiles.js"></script>
-        <style>
-            body, #map {
-                height:100vh;
-                margin: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="map"></div>
-        <script type="text/javascript">
-          // Create a style function that maps CLASS_MAX values to styles
-          function getStyle(feature) {
+<head>
+    <title>PMTiles Radon Vector Example</title>
+    <meta charset="utf-8"/>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.1/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1/ol.css">
+    <script src="https://unpkg.com/ol-pmtiles@0.3.0/dist/olpmtiles.js"></script>
+    <style>
+        body, #map {
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+        // Create a style function that maps CLASS_MAX values to styles
+        function getStyle(feature) {
             const classMax = feature.get("CLASS_MAX");
             console.log("CLASS_MAX:", classMax);
         
             // Define your style categories and corresponding styles here
             // Adjust the conditions and styles to match your data
             if (classMax === "1") {
-              return new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: '#fef0d9',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: '#fef0d9',
-                })
-              });
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#fef0d9',
+                        width: 1,
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#fef0d9',
+                    })
+                });
             } else if (classMax === "2") {
-              return new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: '#e7bc9f',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: '#e7bc9f',
-                })
-              });
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#e7bc9f',
+                        width: 1,
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#e7bc9f',
+                    })
+                });
             } else if (classMax === "3") {
-              style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: '#c5a29f',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: '#c5a29f', 
-                })
-              });
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#c5a29f',
+                        width: 1,
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#c5a29f',
+                    })
+                });
             } else if (classMax === "4") {
-              style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: '#b06c72',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: '#b06c72', 
-                })
-              });
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#b06c72',
+                        width: 1,
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#b06c72',
+                    })
+                });
             } else if (classMax === "5") {
-              style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: '#9a3c52',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: '#9a3c52', 
-                })
-              });
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#9a3c52',
+                        width: 1,
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#9a3c52',
+                    })
+                });
             } else if (classMax === "6") {
-              style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                  color: '#762e3f',
-                  width: 1,
-                }),
-                fill: new ol.style.Fill({
-                  color: '#762e3f', 
-                })
-              });
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#762e3f',
+                        width: 1,
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#762e3f',
+                    })
+                });
             }
-          };
-          
-          // Create an OSM base layer
-          const osmLayer = new ol.layer.Tile({
-              source: new ol.source.OSM()
-          });
+            
+            // Default style if no condition matches
+            return new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: 'rgba(128, 128, 128, 1)',
+                })
+            });
+        }
 
-          const vectorLayer = new ol.layer.VectorTile({
+        // Create an OSM base layer
+        const osmLayer = new ol.layer.Tile({
+            source: new ol.source.OSM()
+        });
+
+        const vectorLayer = new ol.layer.VectorTile({
             declutter: true,
             source: new olpmtiles.PMTilesVectorSource({
-              url: "radon_v2.pmtiles",
-              attributions: ["© British Geological Survey"]
+                url: "radon_v2.pmtiles",
+                attributions: ["© British Geological Survey"]
             }),
             style: getStyle // Use the custom style function for styling
-          });
-        
-          ol.proj.useGeographic();
-          const map = new ol.Map({
+        });
+
+        ol.proj.useGeographic();
+        const map = new ol.Map({
             layers: [osmLayer, vectorLayer],
             target: 'map',
             view: new ol.View({
-              center: [1.4, 53.1],
-              zoom: 5
+                center: ol.proj.fromLonLat([1.4, 53.1]), // Convert to Web Mercator projection
+                zoom: 5
             }),
-          });
-        </script>        
-    </body>
+        });
+    </script>
+</body>
 </html>

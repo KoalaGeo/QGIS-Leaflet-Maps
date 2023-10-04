@@ -96,7 +96,12 @@
               })
             });
           }
-        
+          
+          // Create an OSM base layer
+          const osmLayer = new ol.layer.Tile({
+              source: new ol.source.OSM()
+          });
+
           const vectorLayer = new ol.layer.VectorTile({
             declutter: true,
             source: new olpmtiles.PMTilesVectorSource({
@@ -108,7 +113,7 @@
         
           ol.proj.useGeographic();
           const map = new ol.Map({
-            layers: [vectorLayer],
+            layers: [osmLayer, vectorLayer],
             target: 'map',
             view: new ol.View({
               center: [1.4, 53.1],

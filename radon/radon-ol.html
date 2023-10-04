@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>PMTiles Radon Vector Example</title>
@@ -25,72 +24,43 @@
             // Adjust the conditions and styles to match your data
             if (classMax === "1") {
                 return new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: '#fef0d9',
-                        width: 1,
-                    }),
                     fill: new ol.style.Fill({
                         color: '#fef0d9',
                     })
                 });
             } else if (classMax === "2") {
                 return new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: '#e7bc9f',
-                        width: 1,
-                    }),
                     fill: new ol.style.Fill({
                         color: '#e7bc9f',
                     })
                 });
             } else if (classMax === "3") {
                 return new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: '#c5a29f',
-                        width: 1,
-                    }),
                     fill: new ol.style.Fill({
                         color: '#c5a29f',
                     })
                 });
             } else if (classMax === "4") {
                 return new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: '#b06c72',
-                        width: 1,
-                    }),
                     fill: new ol.style.Fill({
                         color: '#b06c72',
                     })
                 });
             } else if (classMax === "5") {
                 return new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: '#9a3c52',
-                        width: 1,
-                    }),
                     fill: new ol.style.Fill({
                         color: '#9a3c52',
                     })
                 });
             } else if (classMax === "6") {
                 return new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: '#762e3f',
-                        width: 1,
-                    }),
                     fill: new ol.style.Fill({
                         color: '#762e3f',
                     })
                 });
             }
             
-            // Default style if no condition matches
-            return new ol.style.Style({
-                fill: new ol.style.Fill({
-                    color: 'rgba(128, 128, 128, 1)',
-                })
-            });
+
         }
 
         // Create an OSM base layer
@@ -112,8 +82,8 @@
             layers: [osmLayer, vectorLayer],
             target: 'map',
             view: new ol.View({
-                center: ol.proj.fromLonLat([1.4, 53.1]), // Convert to Web Mercator projection
-                zoom: 5
+                center: [-1, 56],
+                zoom: 6
             }),
         });
     </script>

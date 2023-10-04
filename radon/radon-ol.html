@@ -83,19 +83,7 @@
                 })
               });
             }
-            // Add more conditions and styles for other attribute values as needed
-        
-            // Default style if no condition matches
-            return new ol.style.Style({
-              stroke: new ol.style.Stroke({
-                color: 'gray',
-                width: 1,
-              }),
-              fill: new ol.style.Fill({
-                color: 'rgba(128, 128, 128, 1)',
-              })
-            });
-          }
+          };
           
           // Create an OSM base layer
           const osmLayer = new ol.layer.Tile({

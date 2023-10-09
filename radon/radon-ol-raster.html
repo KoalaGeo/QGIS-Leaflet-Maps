@@ -20,22 +20,24 @@
           source: new ol.source.OSM()
       });
 
-      // Create a raster layer using the PMTiles format
-      const rasterLayer = new ol.layer.Tile({
-          source: new ol.source.TileImage({
-              url: "radon_raster_v2.pmtiles", // Replace with the path to your raster PMTiles file
-              attributions: ["© British Geological Survey"]
-          })
-      });
+      const rasterLayer = new ol.layer.WebGLTile({
+            source: new olpmtiles.PMTilesRasterSource({
+              url:"radon_raster_v2.pmtiles",
+              attributions:["© British Geological Survey"],
+              tileSize: [512,512]
+            })
+          });
 
-      ol.proj.useGeographic();
-      const map = new ol.Map({
-          layers: [osmLayer, rasterLayer],
-          target: 'map',
-          view: new ol.View({
+          ol.proj.useGeographic();
+
+          const map = new ol.Map({
+            layers: [osmLayer, rasterLayer],
+            target: 'map',
+            view: new ol.View({
               center: [-1, 56],
-              zoom: 6
-          }),
+              zoom: 3,
+              multiWorld: true
+            })
       });
   </script>
 </body>

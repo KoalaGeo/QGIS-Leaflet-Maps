@@ -1,35 +1,42 @@
 <html>
-    <head>
-        <title>PMTiles Radon Vector Example</title>
-        <meta charset="utf-8"/>
-        <script src="https://cdn.jsdelivr.net/npm/ol@v8.1/dist/ol.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1/ol.css">
-        <script src="https://unpkg.com/ol-pmtiles@0.3.0/dist/olpmtiles.js"></script>
-        <style>
-            body, #map {
-                height:100vh;
-                margin: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="map"></div>
-        <script type="text/javascript">
-            const rasterLayer = new ol.layer.Tile({
-              source: new ol.source.XYZ({
-                url: "radon_raster.pmtiles/{z}/{x}/{y}.png", // Modify the URL to match your raster PMTiles file
-                attributions: ["© British Geological Survey"]
-              })
-            });
-            ol.proj.useGeographic();
-            const map = new ol.Map({
-              layers: [rasterLayer],
-              target: 'map',
-              view: new ol.View({
-                center: [1.4, 53.1],
-                zoom: 5
-              }),
-            });
-        </script>        
-    </body>
+<head>
+    <title>PMTiles Radon Vector Example</title>
+    <meta charset="utf-8"/>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.1/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1/ol.css">
+    <script src="https://unpkg.com/ol-pmtiles@0.3.0/dist/olpmtiles.js"></script>
+    <style>
+        body, #map {
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+      // Create an OSM base layer
+      const osmLayer = new ol.layer.Tile({
+          source: new ol.source.OSM()
+      });
+
+      // Create a raster layer using the PMTiles format
+      const rasterLayer = new ol.layer.Tile({
+          source: new ol.source.TileImage({
+              url: "radon_raster_v2.pmtiles", // Replace with the path to your raster PMTiles file
+              attributions: ["© British Geological Survey"]
+          })
+      });
+
+      ol.proj.useGeographic();
+      const map = new ol.Map({
+          layers: [osmLayer, rasterLayer],
+          target: 'map',
+          view: new ol.View({
+              center: [-1, 56],
+              zoom: 6
+          }),
+      });
+  </script>
+</body>
 </html>

@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>PMTiles Leaflet Example</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.0/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
+        <style>
+            body, #map {
+                height:100vh;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script type="text/javascript">
+            const map = L.map('map').setView([0, 0], 0);
+    
+            // Define the WMS URL and options
+            const wmsUrl = "https://map.bgs.ac.uk/arcgis/services/GeoIndex_Onshore/radon/MapServer/WMSServer";
+            const wmsLayer = L.tileLayer.wms(wmsUrl, {
+                layers: '0',  // Specify the layer you want to display
+                format: 'image/png',
+                transparent: true,
+                attribution: 'Map data by <a href="https://map.bgs.ac.uk/arcgis/services/GeoIndex_Onshore/radon/MapServer">BGS</a>'
+            });
+    
+            wmsLayer.addTo(map);
+        </script>
+    </body>
+</html>
